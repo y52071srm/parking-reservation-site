@@ -1,0 +1,367 @@
+/* ========================================
+   利用ガイドページ専用スタイル
+   ======================================== */
+
+.guide-container {
+    background: linear-gradient(135deg, #f8fafb 0%, #f0f4f8 100%);
+    padding: 60px 0;
+}
+
+/* ========================================
+   ガイドセクション
+   ======================================== */
+.guide-section {
+    padding: 60px 20px;
+}
+
+.guide-section h2 {
+    font-size: 2.2rem;
+    text-align: center;
+    margin-bottom: 50px;
+    color: #2c3e50;
+}
+
+/* ========================================
+   ステップカード
+   ======================================== */
+.steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.step-card {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.step-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.step-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, #1a5490 0%, #0f3d6a 100%);
+}
+
+.step-number {
+    display: inline-block;
+    background: linear-gradient(135deg, #1a5490 0%, #0f3d6a 100%);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-bottom: 15px;
+}
+
+.step-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.step-content p {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 10px;
+}
+
+.step-content p:last-child {
+    margin-bottom: 0;
+}
+
+/* ========================================
+   FAQセクション
+   ======================================== */
+.faq-section {
+    background: white;
+    padding: 60px 20px;
+    margin-top: 60px;
+}
+
+.faq-section h2 {
+    font-size: 2.2rem;
+    text-align: center;
+    margin-bottom: 50px;
+    color: #2c3e50;
+}
+
+.faq-list {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.faq-item {
+    background: #f8fafb;
+    border-radius: 8px;
+    overflow: hidden;
+    border-left: 4px solid #1a5490;
+}
+
+.faq-item summary {
+    padding: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #2c3e50;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+    transition: background-color 0.2s;
+}
+
+.faq-item summary:hover {
+    background-color: #e8f0f8;
+}
+
+.faq-question {
+    flex: 1;
+    font-size: 1rem;
+}
+
+.faq-icon {
+    font-size: 0.8rem;
+    transition: transform 0.3s;
+    margin-left: 20px;
+    color: #1a5490;
+    font-weight: 700;
+}
+
+.faq-item[open] summary .faq-icon {
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    padding: 0 20px 20px;
+    color: #666;
+    line-height: 1.8;
+    background: white;
+}
+
+.faq-answer p {
+    margin-bottom: 12px;
+}
+
+.faq-answer p:last-child {
+    margin-bottom: 0;
+}
+
+.faq-answer ul {
+    list-style-position: inside;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.faq-answer li {
+    margin-bottom: 8px;
+    color: #666;
+}
+
+/* ========================================
+   お問い合わせセクション
+   ======================================== */
+.contact-section {
+    background: linear-gradient(135deg, rgba(26, 84, 144, 0.05) 0%, rgba(15, 61, 106, 0.05) 100%);
+    padding: 60px 20px;
+}
+
+.contact-box {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    text-align: center;
+}
+
+.contact-box h2 {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.contact-box > p {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 40px;
+}
+
+.contact-methods {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.contact-method {
+    padding: 25px;
+    background: #f8fafb;
+    border-radius: 8px;
+    border-left: 4px solid #1a5490;
+    text-align: left;
+}
+
+.contact-method h3 {
+    font-size: 1.2rem;
+    color: #2c3e50;
+    margin-bottom: 12px;
+}
+
+.contact-method p {
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.contact-method a {
+    color: #1a5490;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+.contact-method a:hover {
+    color: #0f3d6a;
+}
+
+.contact-method .desc {
+    font-size: 0.9rem;
+    color: #999;
+    margin-top: 10px;
+}
+
+.link-chat {
+    display: inline-block;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #1a5490 0%, #0f3d6a 100%);
+    color: white;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: transform 0.2s;
+}
+
+.link-chat:hover {
+    transform: translateY(-2px);
+}
+
+/* ========================================
+   レスポンシブ
+   ======================================== */
+@media (max-width: 768px) {
+    .guide-section h2,
+    .faq-section h2 {
+        font-size: 1.6rem;
+    }
+
+    .steps {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .step-card {
+        padding: 20px;
+    }
+
+    .step-title {
+        font-size: 1.2rem;
+    }
+
+    .step-content p {
+        font-size: 0.9rem;
+    }
+
+    .faq-item summary {
+        padding: 15px;
+    }
+
+    .faq-question {
+        font-size: 0.95rem;
+    }
+
+    .faq-answer {
+        padding: 0 15px 15px;
+    }
+
+    .contact-box {
+        padding: 25px;
+    }
+
+    .contact-box h2 {
+        font-size: 1.4rem;
+    }
+
+    .contact-methods {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .guide-section {
+        padding: 40px 15px;
+    }
+
+    .faq-section {
+        padding: 40px 15px;
+    }
+
+    .contact-section {
+        padding: 40px 15px;
+    }
+
+    .guide-section h2,
+    .faq-section h2 {
+        font-size: 1.4rem;
+        margin-bottom: 30px;
+    }
+
+    .step-card {
+        padding: 15px;
+    }
+
+    .step-title {
+        font-size: 1.1rem;
+    }
+
+    .step-content p {
+        font-size: 0.85rem;
+    }
+
+    .faq-item summary {
+        padding: 12px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .faq-icon {
+        margin-left: 0;
+        margin-top: 8px;
+    }
+
+    .contact-box {
+        padding: 20px;
+    }
+
+    .contact-box h2 {
+        font-size: 1.2rem;
+    }
+}
