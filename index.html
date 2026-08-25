@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>八ヶ岳登山口駐車場予約システム</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>🏔️ 八ヶ岳登山口駐車場予約システム</h1>
+        <p>登山の日を選んで、駐車場を予約しよう</p>
+    </header>
+
+    <main>
+        <!-- Google Map セクション -->
+        <section id="map-section">
+            <h2>📍 駐車場を選択</h2>
+            <p class="instruction">地図上のピンをクリックして駐車場を選択してください</p>
+            <div id="map" style="width: 100%; height: 500px; border-radius: 8px; margin-bottom: 20px;"></div>
+            <div id="selected-parking-info" style="display: none; background: #e8f5e9; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                <p><strong>選択中：</strong> <span id="selected-parking-name"></span></p>
+                <p><strong>料金：</strong> ¥<span id="selected-parking-price">1000</span> / 1日</p>
+            </div>
+        </section>
+
+        <!-- 予約フォームセクション -->
+        <section id="booking-section">
+            <h2>📋 予約フォーム</h2>
+            <form id="booking-form">
+                <!-- 駐車場選択確認 -->
+                <div class="form-group">
+                    <label for="parking-select">
+                        <strong>駐車場 *</strong>
+                        <span id="form-selected-parking" class="value-display">未選択</span>
+                    </label>
+                </div>
+
+                <!-- 予約日 -->
+                <div class="form-group">
+                    <label for="booking-date">
+                        <strong>予約日 *</strong>
+                        <input type="date" id="booking-date" required>
+                    </label>
+                </div>
+
+                <!-- ご氏名 -->
+                <div class="form-group">
+                    <label for="user-name">
+                        <strong>ご氏名 *</strong>
+                        <input type="text" id="user-name" placeholder="山田太郎" required>
+                    </label>
+                </div>
+
+                <!-- メールアドレス -->
+                <div class="form-group">
+                    <label for="user-email">
+                        <strong>メールアドレス *</strong>
+                        <input type="email" id="user-email" placeholder="example@gmail.com" required>
+                    </label>
+                </div>
+
+                <!-- 電話番号 -->
+                <div class="form-group">
+                    <label for="user-phone">
+                        <strong>電話番号 *</strong>
+                        <input type="tel" id="user-phone" placeholder="090-1234-5678" required>
+                    </label>
+                </div>
+
+                <!-- 車のナンバー -->
+                <div class="form-group">
+                    <label for="car-number">
+                        <strong>車のナンバー（下4桁） *</strong>
+                        <input type="text" id="car-number" placeholder="1234" maxlength="4" required>
+                    </label>
+                </div>
+
+                <!-- 車種 -->
+                <div class="form-group">
+                    <label for="car-type">
+                        <strong>車種 *</strong>
+                        <select id="car-type" required>
+                            <option value="">選択してください</option>
+                            <option value="軽自動車">軽自動車</option>
+                            <option value="コンパクトカー">コンパクトカー</option>
+                            <option value="セダン">セダン</option>
+                            <option value="SUV">SUV</option>
+                            <option value="ミニバン">ミニバン</option>
+                            <option value="その他">その他</option>
+                        </select>
+                    </label>
+                </div>
+
+                <!-- 予約ボタン -->
+                <button type="submit" id="booking-btn" class="btn-primary">
+                    予約する（¥<span id="button-price">1000</span>）
+                </button>
+
+                <p class="note">* は必須項目です</p>
+            </form>
+        </section>
+
+        <!-- 予約確認モーダル -->
+        <div id="confirm-modal" style="display: none;" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>予約内容の確認</h2>
+                <div id="confirm-details" class="confirm-details"></div>
+                <div style="margin-top: 20px; display: flex; gap: 10px;">
+                    <button id="confirm-btn" class="btn-primary">確認して決済に進む</button>
+                    <button id="cancel-btn" class="btn-secondary">キャンセル</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 決済フォーム（Stripe） -->
+        <section id="payment-section" style="display: none;">
+            <h2>💳 決済</h2>
+            <div id="card-element"></div>
+            <button id="payment-btn" class="btn-primary" style="margin-top: 20px;">決済完了（¥<span id="payment-price">1000</span>）</button>
+        </section>
+
+        <!-- 完了メッセージ -->
+        <section id="success-section" style="display: none;">
+            <div class="success-message">
+                <h2>✅ 予約が完了しました！</h2>
+                <p>予約確認メールを送信いたしました。</p>
+                <p>メールを確認してください。</p>
+                <button onclick="location.reload()" class="btn-primary" style="margin-top: 20px;">新規予約</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 八ヶ岳駐車場予約システム | <a href="#privacy">プライバシーポリシー</a></p>
+    </footer>
+
+    <!-- Google Maps API -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY"></script>
+    
+    <!-- Stripe -->
+    <script src="https://js.stripe.com/v3/"></script>
+
+    <!-- カスタムスクリプト -->
+    <script src="js/map.js"></script>
+    <script src="js/booking.js"></script>
+    <script src="js/payment.js"></script>
+</body>
+</html>
