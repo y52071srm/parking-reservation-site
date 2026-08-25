@@ -1,157 +1,694 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>駐車場予約システム - 登山の駐車場をスマートに予約</title>
-    <link rel="stylesheet" href="css/v2_style.css">
+    <title>八ヶ岳駐車場予約システム</title>
+    <link rel="stylesheet" href="css/style_spa.css">
 </head>
 <body>
     <!-- ナビゲーション -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <a href="v2_index.html">🏔️ 駐車場予約</a>
+                <a href="#" onclick="showSection('home')">🏔️ 八ヶ岳駐車場予約</a>
             </div>
             <ul class="nav-menu">
-                <li><a href="v2_index.html">ホーム</a></li>
-                <li><a href="v2_search.html">駐車場を探す</a></li>
-                <li><a href="v2_guide.html">利用ガイド</a></li>
-                <li><a href="v2_mypage.html">マイページ</a></li>
+                <li><a href="#" onclick="showSection('home')" class="nav-link active" data-section="home">ホーム</a></li>
+                <li><a href="#" onclick="showSection('search')" class="nav-link" data-section="search">駐車場を探す</a></li>
+                <li><a href="#" onclick="showSection('detail')" class="nav-link" data-section="detail">詳細・予約</a></li>
+                <li><a href="#" onclick="showSection('guide')" class="nav-link" data-section="guide">利用ガイド</a></li>
+                <li><a href="#" onclick="showSection('mypage')" class="nav-link" data-section="mypage">マイページ</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- ヘッダー -->
-    <header class="hero">
-        <div class="hero-content">
-            <h1>登山の駐車場をスマートに</h1>
-            <p>八ヶ岳エリア全体の駐車場予約システム</p>
-        </div>
-    </header>
+    <!-- コンテンツ全体 -->
+    <main class="main-content">
+        <!-- ========== ホームセクション ========== -->
+        <section id="home" class="section active">
+            <!-- ヘッダー -->
+            <header class="hero">
+                <div class="hero-content">
+                    <h1>登山の駐車場をスマートに</h1>
+                    <p>八ヶ岳エリア全体の駐車場予約システム</p>
+                </div>
+            </header>
 
-    <!-- メインコンテンツ -->
-    <main class="container">
-        <!-- ダイレクト検索バー -->
-        <section class="search-bar-section">
-            <div class="search-bar">
-                <h2>駐車場を探す</h2>
-                <form id="quick-search-form">
-                    <div class="search-inputs">
-                        <div class="input-group">
-                            <label for="search-area">エリア・登山口</label>
-                            <input type="text" id="search-area" placeholder="赤岳、八島湿原など" required>
+            <div class="container">
+                <!-- ダイレクト検索バー -->
+                <section class="search-bar-section">
+                    <div class="search-bar">
+                        <h2>駐車場を探す</h2>
+                        <form id="quick-search-form">
+                            <div class="search-inputs">
+                                <div class="input-group">
+                                    <label for="search-area">エリア・登山口</label>
+                                    <input type="text" id="search-area" placeholder="赤岳、八島湿原など" required>
+                                </div>
+                                <div class="input-group">
+                                    <label for="search-date">予約日</label>
+                                    <input type="date" id="search-date" required>
+                                </div>
+                                <button type="submit" class="btn-search">検索する</button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- 特徴セクション -->
+                <section class="features">
+                    <h2>八ヶ岳駐車場予約の特徴</h2>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">📍</div>
+                            <h3>全エリア対応</h3>
+                            <p>赤岳、八島湿原、蓼科山など八ヶ岳全体の駐車場が一目瞭然</p>
                         </div>
-                        <div class="input-group">
-                            <label for="search-date">予約日</label>
-                            <input type="date" id="search-date" required>
+                        <div class="feature-card">
+                            <div class="feature-icon">🗓️</div>
+                            <h3>リアルタイム空状況</h3>
+                            <p>各駐車場の混雑状況をカレンダーで確認。満車を避けられます</p>
                         </div>
-                        <button type="submit" class="btn-search">検索する</button>
+                        <div class="feature-card">
+                            <div class="feature-icon">💳</div>
+                            <h3>簡単予約・決済</h3>
+                            <p>オンラインで完結。QRコード提示で当日の手続きも楽々</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🚗</div>
+                            <h3>充実した情報</h3>
+                            <p>トイレ、車中泊対応、林道情報など登山者が知りたい情報が満載</p>
+                        </div>
                     </div>
-                </form>
+                </section>
+
+                <!-- 人気駐車場 -->
+                <section class="popular-parking">
+                    <h2>人気の駐車場</h2>
+                    <div class="parking-list">
+                        <div class="parking-card">
+                            <div class="parking-image" style="background-color: #e8f5e9;">
+                                <span>画像</span>
+                            </div>
+                            <div class="parking-info">
+                                <h3>赤岳山荘駐車場</h3>
+                                <p class="location">📍 赤岳登山口</p>
+                                <p class="details">収容台数：50台 | 料金：¥1,000/日</p>
+                                <p class="rating">⭐ 4.5 (120件の評価)</p>
+                                <button class="btn-detail" onclick="showSection('detail')">詳細・予約</button>
+                            </div>
+                        </div>
+
+                        <div class="parking-card">
+                            <div class="parking-image" style="background-color: #e0f2f1;">
+                                <span>画像</span>
+                            </div>
+                            <div class="parking-info">
+                                <h3>八島湿原駐車場</h3>
+                                <p class="location">📍 八島湿原入口</p>
+                                <p class="details">収容台数：100台 | 料金：¥1,000/日</p>
+                                <p class="rating">⭐ 4.3 (95件の評価)</p>
+                                <button class="btn-detail" onclick="showSection('detail')">詳細・予約</button>
+                            </div>
+                        </div>
+
+                        <div class="parking-card">
+                            <div class="parking-image" style="background-color: #f3e5f5;">
+                                <span>画像</span>
+                            </div>
+                            <div class="parking-info">
+                                <h3>蓼科山駐車場</h3>
+                                <p class="location">📍 蓼科山登山口</p>
+                                <p class="details">収容台数：40台 | 料金：¥1,000/日</p>
+                                <p class="rating">⭐ 4.2 (78件の評価)</p>
+                                <button class="btn-detail" onclick="showSection('detail')">詳細・予約</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn-primary" onclick="showSection('search')">全ての駐車場を見る</button>
+                    </div>
+                </section>
+
+                <!-- FAQ プレビュー -->
+                <section class="faq-preview">
+                    <h2>よくある質問</h2>
+                    <div class="faq-list">
+                        <details class="faq-item">
+                            <summary>予約はいつからできますか？</summary>
+                            <p>登山日の前日までご予約いただけます。当日予約は混雑状況によってお受けできない場合があります。</p>
+                        </details>
+                        <details class="faq-item">
+                            <summary>キャンセルはいつまで可能？</summary>
+                            <p>予約日前日の23:59までキャンセルは無料です。当日キャンセルはキャンセル料が発生いたします。</p>
+                        </details>
+                        <details class="faq-item">
+                            <summary>QRコードは何に使いますか？</summary>
+                            <p>当日、駐車場に到着したら、QRコードを提示してください。スマートに入場できます。</p>
+                        </details>
+                    </div>
+                    <a href="#" onclick="showSection('guide')" class="link-more">全てのFAQを見る →</a>
+                </section>
+
+                <!-- CTA -->
+                <section class="cta-section">
+                    <h2>今すぐ駐車場を予約</h2>
+                    <p>八ヶ岳での登山をもっと快適に</p>
+                    <button class="btn-primary btn-large" onclick="showSection('search')">駐車場を探す</button>
+                </section>
             </div>
         </section>
 
-        <!-- 特徴セクション -->
-        <section class="features">
-            <h2>八ヶ岳駐車場予約の特徴</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">📍</div>
-                    <h3>全エリア対応</h3>
-                    <p>赤岳、八島湿原、蓼科山など八ヶ岳全体の駐車場が一目瞭然</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🗓️</div>
-                    <h3>リアルタイム空状況</h3>
-                    <p>各駐車場の混雑状況をカレンダーで確認。満車を避けられます</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">💳</div>
-                    <h3>簡単予約・決済</h3>
-                    <p>オンラインで完結。QRコード提示で当日の手続きも楽々</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🚗</div>
-                    <h3>充実した情報</h3>
-                    <p>トイレ、車中泊対応、林道情報など登山者が知りたい情報が満載</p>
+        <!-- ========== 検索セクション ========== -->
+        <section id="search" class="section">
+            <header class="page-header">
+                <h1>駐車場を探す</h1>
+                <p>八ヶ岳全体の駐車場から条件で検索</p>
+            </header>
+
+            <div class="container search-container">
+                <div class="search-layout">
+                    <!-- フィルター -->
+                    <aside class="filter-panel">
+                        <h2>検索条件</h2>
+                        
+                        <div class="filter-group">
+                            <label>登山口・エリア名</label>
+                            <input type="text" id="filter-area-search" placeholder="赤岳、八島など">
+                        </div>
+
+                        <div class="filter-group">
+                            <label>予約日</label>
+                            <input type="date" id="filter-date-search">
+                        </div>
+
+                        <div class="filter-group">
+                            <label>料金</label>
+                            <select id="filter-price">
+                                <option value="">全て</option>
+                                <option value="1000">¥1,000</option>
+                                <option value="1500">¥1,500</option>
+                                <option value="2000">¥2,000以上</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label>設備・サービス</label>
+                            <div class="checkbox-group">
+                                <label><input type="checkbox" name="facility" value="toilet"> トイレ有り</label>
+                                <label><input type="checkbox" name="facility" value="vanlife"> 車中泊対応</label>
+                                <label><input type="checkbox" name="facility" value="paved"> 舗装路</label>
+                            </div>
+                        </div>
+
+                        <button class="btn-filter" onclick="applyFilters()">検索</button>
+                        <button class="btn-reset" onclick="resetFilters()">リセット</button>
+                    </aside>
+
+                    <!-- 検索結果 -->
+                    <section class="search-result">
+                        <div class="map-container">
+                            <div id="map" style="width: 100%; height: 400px; background-color: #e0e0e0; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                                <p>Google Map プレースホルダ</p>
+                            </div>
+                        </div>
+
+                        <div class="parking-results">
+                            <h2>検索結果 <span id="result-count">3</span>件</h2>
+                            
+                            <div class="parking-result-item">
+                                <div class="result-image" style="background-color: #e8f5e9;"></div>
+                                <div class="result-info">
+                                    <h3>赤岳山荘駐車場</h3>
+                                    <p class="location">📍 赤岳登山口 | 標高 2,000m</p>
+                                    <p class="details">
+                                        <span class="badge">収容50台</span>
+                                        <span class="badge price">¥1,000/日</span>
+                                    </p>
+                                    <p class="facilities">
+                                        <span class="facility-tag">🚽 トイレ有</span>
+                                        <span class="facility-tag">🚐 車中泊OK</span>
+                                        <span class="facility-tag">🛣️ 舗装</span>
+                                    </p>
+                                    <p class="status available">空き状況：余裕あり</p>
+                                    <button class="btn-detail" onclick="showSection('detail')">詳細・予約</button>
+                                </div>
+                            </div>
+
+                            <div class="parking-result-item">
+                                <div class="result-image" style="background-color: #e0f2f1;"></div>
+                                <div class="result-info">
+                                    <h3>八島湿原駐車場</h3>
+                                    <p class="location">📍 八島湿原入口 | 標高 1,900m</p>
+                                    <p class="details">
+                                        <span class="badge">収容100台</span>
+                                        <span class="badge price">¥1,000/日</span>
+                                    </p>
+                                    <p class="facilities">
+                                        <span class="facility-tag">🚽 トイレ有</span>
+                                        <span class="facility-tag">🚐 車中泊OK</span>
+                                        <span class="facility-tag">🛣️ 舗装</span>
+                                    </p>
+                                    <p class="status moderate">空き状況：やや混雑</p>
+                                    <button class="btn-detail" onclick="showSection('detail')">詳細・予約</button>
+                                </div>
+                            </div>
+
+                            <div class="parking-result-item">
+                                <div class="result-image" style="background-color: #f3e5f5;"></div>
+                                <div class="result-info">
+                                    <h3>蓼科山駐車場</h3>
+                                    <p class="location">📍 蓼科山登山口 | 標高 2,050m</p>
+                                    <p class="details">
+                                        <span class="badge">収容40台</span>
+                                        <span class="badge price">¥1,000/日</span>
+                                    </p>
+                                    <p class="facilities">
+                                        <span class="facility-tag">🚽 トイレ有</span>
+                                        <span class="facility-tag">🛣️ 舗装</span>
+                                    </p>
+                                    <p class="status full">空き状況：ほぼ満車</p>
+                                    <button class="btn-detail" onclick="showSection('detail')">詳細・予約</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
                 </div>
             </div>
         </section>
 
-        <!-- 人気駐車場 -->
-        <section class="popular-parking">
-            <h2>人気の駐車場</h2>
-            <div class="parking-list">
-                <div class="parking-card">
-                    <div class="parking-image" style="background-color: #e8f5e9;">
-                        <span>画像</span>
-                    </div>
-                    <div class="parking-info">
-                        <h3>赤岳山荘駐車場</h3>
-                        <p class="location">📍 赤岳登山口</p>
-                        <p class="details">収容台数：50台 | 料金：¥1,000/日</p>
-                        <p class="rating">⭐ 4.5 (120件の評価)</p>
-                        <a href="v2_detail.html?id=1" class="btn-detail">詳細・予約</a>
-                    </div>
-                </div>
-
-                <div class="parking-card">
-                    <div class="parking-image" style="background-color: #e0f2f1;">
-                        <span>画像</span>
-                    </div>
-                    <div class="parking-info">
-                        <h3>八島湿原駐車場</h3>
-                        <p class="location">📍 八島湿原入口</p>
-                        <p class="details">収容台数：100台 | 料金：¥1,000/日</p>
-                        <p class="rating">⭐ 4.3 (95件の評価)</p>
-                        <a href="v2_detail.html?id=2" class="btn-detail">詳細・予約</a>
-                    </div>
-                </div>
-
-                <div class="parking-card">
-                    <div class="parking-image" style="background-color: #f3e5f5;">
-                        <span>画像</span>
-                    </div>
-                    <div class="parking-info">
-                        <h3>蓼科山駐車場</h3>
-                        <p class="location">📍 蓼科山登山口</p>
-                        <p class="details">収容台数：40台 | 料金：¥1,000/日</p>
-                        <p class="rating">⭐ 4.2 (78件の評価)</p>
-                        <a href="v2_detail.html?id=3" class="btn-detail">詳細・予約</a>
-                    </div>
+        <!-- ========== 詳細セクション ========== -->
+        <section id="detail" class="section">
+            <div class="parking-hero">
+                <div class="hero-image" style="background-color: #e8f5e9;">
+                    <span>駐車場画像</span>
                 </div>
             </div>
-            <div class="text-center">
-                <a href="v2_search.html" class="btn-primary">全ての駐車場を見る</a>
+
+            <section class="parking-detail">
+                <div class="container detail-layout">
+                    <!-- 詳細情報 -->
+                    <div class="detail-left">
+                        <h1>赤岳山荘駐車場</h1>
+                        <p class="location-info">📍 赤岳登山口 | 標高 2,000m</p>
+                        <div class="rating-section">
+                            <span class="rating">⭐ 4.5</span>
+                            <span class="review-count">(120件の評価)</span>
+                        </div>
+
+                        <div class="info-box">
+                            <h2>基本情報</h2>
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <span class="label">収容台数</span>
+                                    <span class="value">50台</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="label">料金</span>
+                                    <span class="value">¥1,000/日</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="label">営業時間</span>
+                                    <span class="value">24時間</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="label">標高</span>
+                                    <span class="value">2,000m</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-box">
+                            <h2>設備・サービス</h2>
+                            <div class="facilities-list">
+                                <div class="facility-item">
+                                    <span class="facility-icon">🚽</span>
+                                    <span>トイレ有り</span>
+                                </div>
+                                <div class="facility-item">
+                                    <span class="facility-icon">💧</span>
+                                    <span>水道有り</span>
+                                </div>
+                                <div class="facility-item">
+                                    <span class="facility-icon">🚐</span>
+                                    <span>車中泊対応</span>
+                                </div>
+                                <div class="facility-item">
+                                    <span class="facility-icon">🛣️</span>
+                                    <span>舗装路</span>
+                                </div>
+                                <div class="facility-item">
+                                    <span class="facility-icon">📱</span>
+                                    <span>携帯電波あり</span>
+                                </div>
+                                <div class="facility-item">
+                                    <span class="facility-icon">⚡</span>
+                                    <span>充電スタンド</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-box">
+                            <h2>アクセス情報</h2>
+                            <div class="access-info">
+                                <div class="access-item">
+                                    <span class="label">ナビゲーション用住所</span>
+                                    <span class="value">長野県南佐久郡北相木村〇〇</span>
+                                </div>
+                                <div class="access-item">
+                                    <span class="label">マップコード</span>
+                                    <span class="value">69 327 688*54</span>
+                                </div>
+                                <div class="access-item">
+                                    <span class="label">アプローチ路</span>
+                                    <span class="value alert">林道の一部が未舗装です。悪路注意。</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 予約フォーム -->
+                    <aside class="detail-right">
+                        <div class="booking-card">
+                            <h2>予約・決済</h2>
+
+                            <div class="calendar-section">
+                                <h3>空き状況カレンダー</h3>
+                                <div class="calendar" id="calendar"></div>
+                                <div class="calendar-legend">
+                                    <p><span class="legend-available">■</span> 空きあり</p>
+                                    <p><span class="legend-limited">■</span> 残数少ない</p>
+                                    <p><span class="legend-full">■</span> 満車</p>
+                                </div>
+                            </div>
+
+                            <form id="booking-form" class="booking-form">
+                                <div class="form-group">
+                                    <label for="booking-date">予約日 *</label>
+                                    <input type="date" id="booking-date" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="user-name">氏名 *</label>
+                                    <input type="text" id="user-name" placeholder="山田太郎" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="user-email">メールアドレス *</label>
+                                    <input type="email" id="user-email" placeholder="example@gmail.com" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="user-phone">電話番号 *</label>
+                                    <input type="tel" id="user-phone" placeholder="090-1234-5678" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="car-number">車のナンバー（下4桁） *</label>
+                                    <input type="text" id="car-number" placeholder="1234" maxlength="4" required>
+                                </div>
+
+                                <div class="price-summary">
+                                    <div class="price-row">
+                                        <span>駐車料金</span>
+                                        <span id="price-total">¥1,000</span>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn-primary btn-large">予約・決済へ進む</button>
+                            </form>
+
+                            <div class="cancellation-policy">
+                                <h3>キャンセルポリシー</h3>
+                                <ul>
+                                    <li>前日23:59までのキャンセルは無料</li>
+                                    <li>当日キャンセルは料金の50%</li>
+                                    <li>無断キャンセルは料金の100%</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </section>
+        </section>
+
+        <!-- ========== 利用ガイドセクション ========== -->
+        <section id="guide" class="section">
+            <header class="page-header">
+                <h1>利用ガイド</h1>
+                <p>予約から当日までの流れをご説明します</p>
+            </header>
+
+            <div class="guide-container">
+                <section class="guide-section">
+                    <div class="container">
+                        <h2>予約〜当日までの流れ</h2>
+                        
+                        <div class="steps">
+                            <div class="step-card">
+                                <div class="step-number">STEP 1</div>
+                                <div class="step-title">駐車場を検索</div>
+                                <div class="step-content">
+                                    <p>「駐車場を探す」ページから、登山予定のエリア・日付を検索します。</p>
+                                </div>
+                            </div>
+
+                            <div class="step-card">
+                                <div class="step-number">STEP 2</div>
+                                <div class="step-title">駐車場詳細を確認</div>
+                                <div class="step-content">
+                                    <p>駐車場の詳細ページで、設備・サービス・アクセス方法などを確認します。</p>
+                                </div>
+                            </div>
+
+                            <div class="step-card">
+                                <div class="step-number">STEP 3</div>
+                                <div class="step-title">予約情報を入力</div>
+                                <div class="step-content">
+                                    <p>お名前、メールアドレス、車のナンバーなどを入力します。</p>
+                                </div>
+                            </div>
+
+                            <div class="step-card">
+                                <div class="step-number">STEP 4</div>
+                                <div class="step-title">決済を完了</div>
+                                <div class="step-content">
+                                    <p>クレジットカードまたは PayPay で決済します。</p>
+                                </div>
+                            </div>
+
+                            <div class="step-card">
+                                <div class="step-number">STEP 5</div>
+                                <div class="step-title">予約確認メール受信</div>
+                                <div class="step-content">
+                                    <p>メールアドレスに予約確認メールが送信されます。QRコードが添付されています。</p>
+                                </div>
+                            </div>
+
+                            <div class="step-card">
+                                <div class="step-number">STEP 6</div>
+                                <div class="step-title">当日：駐車場到着</div>
+                                <div class="step-content">
+                                    <p>QRコードを係員に提示してください。スマートに入場できます。</p>
+                                </div>
+                            </div>
+
+                            <div class="step-card">
+                                <div class="step-number">STEP 7</div>
+                                <div class="step-title">登山を楽しむ</div>
+                                <div class="step-content">
+                                    <p>安心して登山をお楽しみください。</p>
+                                </div>
+                            </div>
+
+                            <div class="step-card">
+                                <div class="step-number">STEP 8</div>
+                                <div class="step-title">帰路・退出</div>
+                                <div class="step-content">
+                                    <p>登山から戻ったら、係員に声をおかけください。ご出発となります。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="faq-section">
+                    <div class="container">
+                        <h2>よくある質問</h2>
+                        
+                        <div class="faq-list">
+                            <details class="faq-item">
+                                <summary>
+                                    <span class="faq-question">予約はいつからできますか？</span>
+                                    <span class="faq-icon">▼</span>
+                                </summary>
+                                <div class="faq-answer">
+                                    <p>登山日の前日までご予約いただけます。</p>
+                                </div>
+                            </details>
+
+                            <details class="faq-item">
+                                <summary>
+                                    <span class="faq-question">キャンセルはいつまで可能？</span>
+                                    <span class="faq-icon">▼</span>
+                                </summary>
+                                <div class="faq-answer">
+                                    <p>予約日の前日23:59までのキャンセルは無料です。</p>
+                                </div>
+                            </details>
+
+                            <details class="faq-item">
+                                <summary>
+                                    <span class="faq-question">QRコードは何に使いますか？</span>
+                                    <span class="faq-icon">▼</span>
+                                </summary>
+                                <div class="faq-answer">
+                                    <p>当日、駐車場に到着したら、QRコードを係員に提示してください。</p>
+                                </div>
+                            </details>
+
+                            <details class="faq-item">
+                                <summary>
+                                    <span class="faq-question">支払い方法は何がありますか？</span>
+                                    <span class="faq-icon">▼</span>
+                                </summary>
+                                <div class="faq-answer">
+                                    <p>クレジットカード（Visa、Mastercard、AMEX）と PayPay に対応しています。</p>
+                                </div>
+                            </details>
+
+                            <details class="faq-item">
+                                <summary>
+                                    <span class="faq-question">領収書は発行されますか？</span>
+                                    <span class="faq-icon">▼</span>
+                                </summary>
+                                <div class="faq-answer">
+                                    <p>はい、マイページから PDF ダウンロードできます。</p>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+                </section>
             </div>
         </section>
 
-        <!-- FAQ プレビュー -->
-        <section class="faq-preview">
-            <h2>よくある質問</h2>
-            <div class="faq-list">
-                <details class="faq-item">
-                    <summary>予約はいつからできますか？</summary>
-                    <p>登山日の前日までご予約いただけます。当日予約は混雑状況によってお受けできない場合があります。</p>
-                </details>
-                <details class="faq-item">
-                    <summary>キャンセルはいつまで可能？</summary>
-                    <p>予約日前日の23:59までキャンセルは無料です。当日キャンセルはキャンセル料が発生いたします。</p>
-                </details>
-                <details class="faq-item">
-                    <summary>QRコードは何に使いますか？</summary>
-                    <p>当日、駐車場に到着したら、QRコードを提示してください。スマートに入場できます。</p>
-                </details>
-            </div>
-            <a href="v2_guide.html" class="link-more">全てのFAQを見る →</a>
-        </section>
+        <!-- ========== マイページセクション ========== -->
+        <section id="mypage" class="section">
+            <header class="page-header">
+                <h1>マイページ</h1>
+                <p>予約履歴の確認・変更・キャンセルができます</p>
+            </header>
 
-        <!-- CTA -->
-        <section class="cta-section">
-            <h2>今すぐ駐車場を予約</h2>
-            <p>八ヶ岳での登山をもっと快適に</p>
-            <a href="v2_search.html" class="btn-primary btn-large">駐車場を探す</a>
+            <div class="container mypage-container">
+                <div class="mypage-layout">
+                    <!-- ユーザー情報 -->
+                    <aside class="mypage-sidebar">
+                        <div class="user-card">
+                            <div class="user-avatar">👤</div>
+                            <h2 class="user-name">山田太郎</h2>
+                            <p class="user-email">yamada@example.com</p>
+                        </div>
+
+                        <nav class="mypage-menu">
+                            <ul>
+                                <li><a href="#" class="menu-link active" data-tab="reservations">予約履歴</a></li>
+                                <li><a href="#" class="menu-link" data-tab="qrcode">QRコード</a></li>
+                                <li><a href="#" class="menu-link" data-tab="receipts">領収書</a></li>
+                                <li><a href="#" class="menu-link" data-tab="settings">設定</a></li>
+                            </ul>
+                        </nav>
+                    </aside>
+
+                    <!-- コンテンツ -->
+                    <section class="mypage-content">
+                        <!-- 予約履歴 -->
+                        <div id="reservations-tab" class="mypage-tab active">
+                            <h2>予約履歴</h2>
+                            
+                            <div class="reservation-card">
+                                <div class="card-header">
+                                    <h3>赤岳山荘駐車場</h3>
+                                    <span class="status-badge upcoming">予約予定</span>
+                                </div>
+                                <div class="card-body">
+                                    <p><strong>予約日：</strong>2024年9月15日（日）</p>
+                                    <p><strong>料金：</strong>¥1,000</p>
+                                    <p><strong>車のナンバー：</strong>品川 1234</p>
+                                </div>
+                                <div class="card-actions">
+                                    <button class="btn-small">QRコードを表示</button>
+                                    <button class="btn-small">変更</button>
+                                    <button class="btn-small">キャンセル</button>
+                                </div>
+                            </div>
+
+                            <div class="reservation-card">
+                                <div class="card-header">
+                                    <h3>八島湿原駐車場</h3>
+                                    <span class="status-badge completed">利用済み</span>
+                                </div>
+                                <div class="card-body">
+                                    <p><strong>予約日：</strong>2024年9月8日（日）</p>
+                                    <p><strong>料金：</strong>¥1,000</p>
+                                    <p><strong>車のナンバー：</strong>品川 1234</p>
+                                </div>
+                                <div class="card-actions">
+                                    <button class="btn-small">領収書をダウンロード</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- QRコード -->
+                        <div id="qrcode-tab" class="mypage-tab">
+                            <h2>予約用QRコード</h2>
+                            <p>当日、駐車場での入場時にこの QRコードを提示してください。</p>
+                            <div class="qrcode-card">
+                                <div class="qrcode-box">📱 QRコード画像</div>
+                                <div class="qrcode-info">
+                                    <p><strong>赤岳山荘駐車場</strong></p>
+                                    <p>予約日：2024年9月15日（日）</p>
+                                    <button class="btn-primary">スクリーンショットを保存</button>
+                                    <button class="btn-secondary">メールで送信</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 領収書 -->
+                        <div id="receipts-tab" class="mypage-tab">
+                            <h2>領収書</h2>
+                            <p>過去の利用に関する領収書をダウンロードできます。</p>
+                            <div class="receipts-list">
+                                <div class="receipt-item">
+                                    <p><strong>八島湿原駐車場</strong> - 2024年9月8日 - ¥1,000</p>
+                                    <button class="btn-small">PDF ダウンロード</button>
+                                </div>
+                                <div class="receipt-item">
+                                    <p><strong>赤岳山荘駐車場</strong> - 2024年8月25日 - ¥1,000</p>
+                                    <button class="btn-small">PDF ダウンロード</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 設定 -->
+                        <div id="settings-tab" class="mypage-tab">
+                            <h2>設定</h2>
+                            <div class="settings-box">
+                                <h3>アカウント情報</h3>
+                                <p><strong>メールアドレス：</strong>yamada@example.com</p>
+                                <p><strong>電話番号：</strong>090-1234-5678</p>
+                                <button class="btn-primary">編集</button>
+                            </div>
+                            <div class="settings-box">
+                                <h3>通知設定</h3>
+                                <label><input type="checkbox" checked> 予約確認メールを受け取る</label>
+                                <label><input type="checkbox" checked> キャンセル通知を受け取る</label>
+                                <button class="btn-primary">保存</button>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
         </section>
     </main>
 
@@ -160,13 +697,12 @@
         <div class="footer-content">
             <p>&copy; 2024 八ヶ岳駐車場予約システム</p>
             <ul class="footer-links">
-                <li><a href="v2_guide.html">利用ガイド</a></li>
-                <li><a href="#privacy">プライバシーポリシー</a></li>
-                <li><a href="#terms">利用規約</a></li>
+                <li><a href="#">プライバシーポリシー</a></li>
+                <li><a href="#">利用規約</a></li>
             </ul>
         </div>
     </footer>
 
-    <script src="js/v2_main.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
