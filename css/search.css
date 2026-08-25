@@ -1,0 +1,341 @@
+/* ========================================
+   検索ページ専用スタイル
+   ======================================== */
+
+.page-header {
+    background: linear-gradient(135deg, #1a5490 0%, #0f3d6a 100%);
+    color: white;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.page-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.page-header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+/* ========================================
+   検索レイアウト
+   ======================================== */
+.search-container {
+    padding: 40px 20px;
+}
+
+.search-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 30px;
+}
+
+/* ========================================
+   フィルターパネル
+   ======================================== */
+.filter-panel {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    height: fit-content;
+    position: sticky;
+    top: 90px;
+}
+
+.filter-panel h2 {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    color: #2c3e50;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #e0e6ed;
+}
+
+.filter-group {
+    margin-bottom: 20px;
+}
+
+.filter-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #2c3e50;
+    font-size: 0.9rem;
+}
+
+.filter-group input[type="text"],
+.filter-group input[type="date"],
+.filter-group select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 2px solid #e0e6ed;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    transition: border-color 0.3s;
+}
+
+.filter-group input[type="text"]:focus,
+.filter-group input[type="date"]:focus,
+.filter-group select:focus {
+    outline: none;
+    border-color: #1a5490;
+    box-shadow: 0 0 8px rgba(26, 84, 144, 0.1);
+}
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin-right: 8px;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+}
+
+.btn-filter {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #1a5490 0%, #0f3d6a 100%);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: transform 0.2s;
+}
+
+.btn-filter:hover {
+    transform: translateY(-2px);
+}
+
+.btn-reset {
+    width: 100%;
+    padding: 12px;
+    background-color: #e0e6ed;
+    color: #2c3e50;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-reset:hover {
+    background-color: #ccd4e0;
+}
+
+/* ========================================
+   検索結果セクション
+   ======================================== */
+.search-result {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.map-container {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.parking-results {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.parking-results h2 {
+    font-size: 1.5rem;
+    margin-bottom: 25px;
+    color: #2c3e50;
+}
+
+.parking-results h2 span {
+    color: #1a5490;
+    font-weight: 700;
+}
+
+/* ========================================
+   駐車場結果アイテム
+   ======================================== */
+.parking-result-item {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 20px;
+    padding: 20px;
+    border: 1px solid #e0e6ed;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    transition: box-shadow 0.3s;
+}
+
+.parking-result-item:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.result-image {
+    width: 100%;
+    height: 150px;
+    border-radius: 8px;
+    background-size: cover;
+    background-position: center;
+}
+
+.result-info h3 {
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+    color: #2c3e50;
+}
+
+.result-info .location {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
+.result-info .details {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.badge {
+    display: inline-block;
+    padding: 4px 10px;
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.badge.price {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.facilities {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.facility-tag {
+    display: inline-block;
+    padding: 4px 8px;
+    background-color: #f5f5f5;
+    color: #666;
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+.result-info .status {
+    font-weight: 600;
+    margin-bottom: 12px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.status.available {
+    color: #2e7d32;
+    background-color: #e8f5e9;
+}
+
+.status.moderate {
+    color: #f57c00;
+    background-color: #ffe0b2;
+}
+
+.status.full {
+    color: #c62828;
+    background-color: #ffebee;
+}
+
+.btn-detail {
+    display: inline-block;
+    padding: 10px 24px;
+    background: linear-gradient(135deg, #1a5490 0%, #0f3d6a 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: transform 0.2s;
+}
+
+.btn-detail:hover {
+    transform: translateY(-2px);
+}
+
+/* ========================================
+   レスポンシブ
+   ======================================== */
+@media (max-width: 1024px) {
+    .search-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .filter-panel {
+        position: static;
+    }
+}
+
+@media (max-width: 768px) {
+    .page-header h1 {
+        font-size: 2rem;
+    }
+
+    .parking-result-item {
+        grid-template-columns: 1fr;
+    }
+
+    .result-image {
+        height: 200px;
+    }
+
+    .filter-panel {
+        display: none;
+    }
+
+    .search-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .parking-result-item {
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+
+    .result-info h3 {
+        font-size: 1.1rem;
+    }
+
+    .result-image {
+        height: 150px;
+    }
+}
