@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style_final.css">
     <style>
         /* ハンバーガーメニュー用追加スタイル */
         .hamburger-btn {
@@ -886,8 +886,8 @@
             formData.append('date', bookingDate);
             formData.append('car_number', carNumber);
             
-            // y52071srm@gmail.comへメール送信
-            const mailToLink = `mailto:y52071srm@gmail.com?subject=駐車場予約：${parkingName}&body=氏名：${name}%0A%0Aメールアドレス：${email}%0A%0A電話番号：${phone}%0A%0A駐車場：${parkingName}%0A%0A予約日：${bookingDate}%0A%0A車のナンバー：${carNumber}`;
+            // y.52071.srm@gmail.comへメール送信
+            const mailToLink = `mailto:y.52071.srm@gmail.com?subject=駐車場予約：${parkingName}&body=氏名：${name}%0A%0Aメールアドレス：${email}%0A%0A電話番号：${phone}%0A%0A駐車場：${parkingName}%0A%0A予約日：${bookingDate}%0A%0A車のナンバー：${carNumber}`;
             
             alert('予約を進めました。確認メールをお送りします。');
             console.log('予約情報:', {name, email, phone, parkingName, bookingDate, carNumber});
