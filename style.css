@@ -1,7 +1,9 @@
 /* ========================================
-   八ヶ岳駐車場予約システム - セクション切り替え型
-   透明性が高く清潔感のあるデザイン
+   八ヶ岳駐車場予約システム - エメラルドグリーン＆柔らかいフォント版
+   透明感のある自然な配色
    ======================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap');
 
 * {
     margin: 0;
@@ -14,19 +16,20 @@ html {
 }
 
 body {
-    font-family: 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
-    background: linear-gradient(135deg, #f8fafb 0%, #f0f4f8 100%);
-    color: #2c3e50;
-    line-height: 1.6;
+    font-family: 'Poppins', 'Noto Sans JP', sans-serif;
+    background: linear-gradient(135deg, #f5faf8 0%, #f0f8f5 100%);
+    color: #3d5a50;
+    line-height: 1.7;
+    font-weight: 300;
 }
 
 /* ========================================
    ナビゲーションバー
    ======================================== */
 .navbar {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.92);
     backdrop-filter: blur(10px);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 12px rgba(16, 128, 100, 0.08);
     position: sticky;
     top: 0;
     z-index: 100;
@@ -44,33 +47,68 @@ body {
 
 .nav-logo a {
     font-size: 1.5rem;
-    font-weight: 700;
-    color: #1a5490;
+    font-weight: 600;
+    color: #108064;
     text-decoration: none;
     transition: color 0.3s;
+    letter-spacing: -0.3px;
 }
 
 .nav-logo a:hover {
-    color: #0f3d6a;
+    color: #0a5c4a;
 }
 
 .nav-menu {
     display: flex;
     list-style: none;
-    gap: 30px;
+    gap: 35px;
 }
 
 .nav-menu a {
-    color: #2c3e50;
+    color: #3d5a50;
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 400;
+    font-size: 0.95rem;
     transition: color 0.3s;
     cursor: pointer;
+    letter-spacing: 0.2px;
 }
 
 .nav-menu a:hover,
 .nav-menu a.active {
-    color: #1a5490;
+    color: #108064;
+}
+
+/* ハンバーガーメニュー用 */
+.hamburger-btn {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #108064;
+}
+
+.hamburger-btn span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #108064;
+    margin: 5px 0;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+.hamburger-btn.active span:nth-child(1) {
+    transform: rotate(45deg) translate(8px, 8px);
+}
+
+.hamburger-btn.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-btn.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
 }
 
 /* ========================================
@@ -88,27 +126,31 @@ body {
    ヘッダー（ヒーロー）
    ======================================== */
 .hero {
-    background: linear-gradient(135deg, #1a5490 0%, #0f3d6a 100%);
+    background: linear-gradient(135deg, rgba(16, 128, 100, 0.85) 0%, rgba(8, 92, 74, 0.85) 100%),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></pattern></defs><rect width="1200" height="600" fill="url(%23grid)"/></svg>');
+    background-size: cover;
     color: white;
-    padding: 80px 20px;
+    padding: 100px 20px;
     text-align: center;
 }
 
 .hero-content h1 {
-    font-size: 2.8rem;
+    font-size: 3rem;
     margin-bottom: 15px;
-    font-weight: 800;
+    font-weight: 600;
     letter-spacing: -0.5px;
+    line-height: 1.2;
 }
 
 .hero-content p {
-    font-size: 1.3rem;
+    font-size: 1.25rem;
     opacity: 0.95;
     font-weight: 300;
+    letter-spacing: 0.3px;
 }
 
 .page-header {
-    background: linear-gradient(135deg, #1a5490 0%, #0f3d6a 100%);
+    background: linear-gradient(135deg, rgba(16, 128, 100, 0.9) 0%, rgba(8, 92, 74, 0.9) 100%);
     color: white;
     padding: 60px 20px;
     text-align: center;
@@ -117,11 +159,13 @@ body {
 .page-header h1 {
     font-size: 2.5rem;
     margin-bottom: 10px;
+    font-weight: 600;
 }
 
 .page-header p {
     font-size: 1.1rem;
     opacity: 0.9;
+    font-weight: 300;
 }
 
 /* ========================================
@@ -142,15 +186,17 @@ body {
 
 .search-bar {
     background: white;
-    border-radius: 16px;
+    border-radius: 20px;
     padding: 40px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 32px rgba(16, 128, 100, 0.08);
+    border: 1px solid rgba(16, 128, 100, 0.1);
 }
 
 .search-bar h2 {
     font-size: 1.8rem;
     margin-bottom: 30px;
-    color: #2c3e50;
+    color: #108064;
+    font-weight: 600;
 }
 
 .search-inputs {
@@ -167,42 +213,47 @@ body {
 
 .input-group label {
     display: block;
-    font-weight: 600;
+    font-weight: 500;
     margin-bottom: 8px;
-    color: #2c3e50;
+    color: #3d5a50;
     font-size: 0.95rem;
+    letter-spacing: 0.2px;
 }
 
 .input-group input {
     width: 100%;
     padding: 12px 15px;
-    border: 2px solid #e0e6ed;
-    border-radius: 8px;
+    border: 2px solid #e0f0eb;
+    border-radius: 10px;
     font-size: 1rem;
-    transition: border-color 0.3s, box-shadow 0.3s;
+    font-family: 'Poppins', 'Noto Sans JP', sans-serif;
+    transition: all 0.3s;
+    background: #fafffe;
 }
 
 .input-group input:focus {
     outline: none;
-    border-color: #1a5490;
-    box-shadow: 0 0 12px rgba(26, 84, 144, 0.1);
+    border-color: #108064;
+    box-shadow: 0 0 12px rgba(16, 128, 100, 0.15);
+    background: white;
 }
 
 .btn-search {
     padding: 12px 32px;
-    background: linear-gradient(135deg, #1a5490 0%, #0f3d6a 100%);
+    background: linear-gradient(135deg, #108064 0%, #0a5c4a 100%);
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 500;
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: all 0.3s;
+    letter-spacing: 0.3px;
 }
 
 .btn-search:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(26, 84, 144, 0.25);
+    box-shadow: 0 8px 20px rgba(16, 128, 100, 0.25);
 }
 
 /* ========================================
@@ -213,10 +264,11 @@ body {
 }
 
 .features h2 {
-    font-size: 2rem;
+    font-size: 2.2rem;
     margin-bottom: 50px;
     text-align: center;
-    color: #2c3e50;
+    color: #108064;
+    font-weight: 600;
 }
 
 .features-grid {
@@ -227,33 +279,37 @@ body {
 
 .feature-card {
     background: white;
-    padding: 30px;
-    border-radius: 12px;
+    padding: 35px 30px;
+    border-radius: 16px;
     text-align: center;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 16px rgba(16, 128, 100, 0.06);
+    transition: all 0.3s;
+    border: 1px solid rgba(16, 128, 100, 0.08);
 }
 
 .feature-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 12px 32px rgba(16, 128, 100, 0.12);
+    border-color: rgba(16, 128, 100, 0.15);
 }
 
 .feature-icon {
-    font-size: 3rem;
+    font-size: 3.5rem;
     margin-bottom: 15px;
 }
 
 .feature-card h3 {
     font-size: 1.3rem;
     margin-bottom: 12px;
-    color: #2c3e50;
+    color: #108064;
+    font-weight: 600;
 }
 
 .feature-card p {
     color: #666;
     font-size: 0.95rem;
-    line-height: 1.6;
+    line-height: 1.7;
+    font-weight: 300;
 }
 
 /* ========================================
@@ -264,9 +320,10 @@ body {
 }
 
 .popular-parking h2 {
-    font-size: 2rem;
+    font-size: 2.2rem;
     margin-bottom: 40px;
-    color: #2c3e50;
+    color: #108064;
+    font-weight: 600;
 }
 
 .parking-list {
@@ -278,15 +335,16 @@ body {
 
 .parking-card {
     background: white;
-    border-radius: 12px;
+    border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 16px rgba(16, 128, 100, 0.06);
+    transition: all 0.3s;
+    border: 1px solid rgba(16, 128, 100, 0.08);
 }
 
 .parking-card:hover {
     transform: translateY(-6px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 12px 32px rgba(16, 128, 100, 0.12);
 }
 
 .parking-image {
@@ -296,54 +354,59 @@ body {
     align-items: center;
     justify-content: center;
     color: white;
-    font-weight: 600;
+    font-weight: 500;
     background-size: cover;
     background-position: center;
 }
 
 .parking-info {
-    padding: 20px;
+    padding: 25px;
 }
 
 .parking-info h3 {
     font-size: 1.3rem;
     margin-bottom: 8px;
-    color: #2c3e50;
+    color: #108064;
+    font-weight: 600;
 }
 
 .parking-info .location {
     color: #666;
     margin-bottom: 8px;
+    font-size: 0.95rem;
 }
 
 .parking-info .details {
     font-size: 0.9rem;
     color: #888;
     margin-bottom: 8px;
+    font-weight: 300;
 }
 
 .parking-info .rating {
-    color: #f59e0b;
+    color: #10b981;
     font-weight: 600;
     margin-bottom: 15px;
+    font-size: 0.95rem;
 }
 
 .btn-detail {
     display: inline-block;
     padding: 10px 20px;
-    background: linear-gradient(135deg, #1a5490 0%, #0f3d6a 100%);
+    background: linear-gradient(135deg, #108064 0%, #0a5c4a 100%);
     color: white;
     text-decoration: none;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     font-size: 0.9rem;
-    font-weight: 600;
+    font-weight: 500;
     cursor: pointer;
-    transition: transform 0.2s;
+    transition: all 0.3s;
 }
 
 .btn-detail:hover {
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(16, 128, 100, 0.2);
 }
 
 /* ========================================
@@ -352,20 +415,21 @@ body {
 .btn-primary {
     display: inline-block;
     padding: 14px 32px;
-    background: linear-gradient(135deg, #1a5490 0%, #0f3d6a 100%);
+    background: linear-gradient(135deg, #108064 0%, #0a5c4a 100%);
     color: white;
     text-decoration: none;
-    border-radius: 8px;
-    font-weight: 600;
-    transition: transform 0.2s, box-shadow 0.2s;
+    border-radius: 10px;
+    font-weight: 500;
+    transition: all 0.3s;
     border: none;
     cursor: pointer;
     font-size: 1rem;
+    letter-spacing: 0.3px;
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(26, 84, 144, 0.25);
+    box-shadow: 0 8px 20px rgba(16, 128, 100, 0.25);
 }
 
 .btn-primary.btn-large {
@@ -376,27 +440,27 @@ body {
 .btn-secondary {
     display: inline-block;
     padding: 12px 24px;
-    background-color: #e0e6ed;
-    color: #2c3e50;
+    background-color: #e0f0eb;
+    color: #108064;
     border: none;
-    border-radius: 6px;
-    font-weight: 600;
+    border-radius: 8px;
+    font-weight: 500;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.3s;
 }
 
 .btn-secondary:hover {
-    background-color: #ccd4e0;
+    background-color: #cce8e0;
 }
 
 .btn-small {
     padding: 8px 16px;
-    background: linear-gradient(135deg, #1a5490 0%, #0f3d6a 100%);
+    background: linear-gradient(135deg, #108064 0%, #0a5c4a 100%);
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     font-size: 0.85rem;
-    font-weight: 600;
+    font-weight: 500;
     cursor: pointer;
     margin-right: 8px;
     margin-bottom: 8px;
@@ -405,11 +469,11 @@ body {
 .btn-filter {
     width: 100%;
     padding: 12px;
-    background: linear-gradient(135deg, #1a5490 0%, #0f3d6a 100%);
+    background: linear-gradient(135deg, #108064 0%, #0a5c4a 100%);
     color: white;
     border: none;
-    border-radius: 6px;
-    font-weight: 600;
+    border-radius: 8px;
+    font-weight: 500;
     cursor: pointer;
     margin-bottom: 10px;
 }
@@ -417,11 +481,11 @@ body {
 .btn-reset {
     width: 100%;
     padding: 12px;
-    background-color: #e0e6ed;
-    color: #2c3e50;
+    background-color: #e0f0eb;
+    color: #108064;
     border: none;
-    border-radius: 6px;
-    font-weight: 600;
+    border-radius: 8px;
+    font-weight: 500;
     cursor: pointer;
 }
 
@@ -437,9 +501,10 @@ body {
 }
 
 .faq-preview h2 {
-    font-size: 2rem;
+    font-size: 2.2rem;
     margin-bottom: 40px;
-    color: #2c3e50;
+    color: #108064;
+    font-weight: 600;
 }
 
 .faq-list {
@@ -451,54 +516,57 @@ body {
 
 .faq-item {
     background: white;
-    border-radius: 8px;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 8px rgba(16, 128, 100, 0.05);
+    border: 1px solid rgba(16, 128, 100, 0.08);
 }
 
 .faq-item summary {
     padding: 20px;
     cursor: pointer;
-    font-weight: 600;
-    color: #2c3e50;
+    font-weight: 500;
+    color: #3d5a50;
     display: flex;
     justify-content: space-between;
     align-items: center;
     user-select: none;
-    transition: background-color 0.2s;
+    transition: all 0.2s;
 }
 
 .faq-item summary:hover {
-    background-color: #f8fafb;
+    background-color: #fafffe;
+    color: #108064;
 }
 
 .faq-item p {
     padding: 0 20px 20px;
     color: #666;
-    line-height: 1.7;
+    line-height: 1.8;
+    font-weight: 300;
 }
 
 .link-more {
     display: inline-block;
-    color: #1a5490;
+    color: #108064;
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 500;
     cursor: pointer;
-    transition: color 0.3s;
+    transition: all 0.3s;
 }
 
 .link-more:hover {
-    color: #0f3d6a;
+    color: #0a5c4a;
 }
 
 /* ========================================
    CTA セクション
    ======================================== */
 .cta-section {
-    background: linear-gradient(135deg, rgba(26, 84, 144, 0.95) 0%, rgba(15, 61, 106, 0.95) 100%);
+    background: linear-gradient(135deg, rgba(16, 128, 100, 0.9) 0%, rgba(8, 92, 74, 0.9) 100%);
     color: white;
     padding: 60px 40px;
-    border-radius: 16px;
+    border-radius: 20px;
     text-align: center;
     margin-bottom: 40px;
 }
@@ -506,20 +574,22 @@ body {
 .cta-section h2 {
     font-size: 2.2rem;
     margin-bottom: 15px;
+    font-weight: 600;
 }
 
 .cta-section p {
     font-size: 1.1rem;
     margin-bottom: 30px;
     opacity: 0.95;
+    font-weight: 300;
 }
 
 /* ========================================
    フッター
    ======================================== */
 .footer {
-    background: #1a1f2e;
-    color: #ccc;
+    background: #1a3d38;
+    color: #b8d4cc;
     padding: 40px 20px;
     margin-top: 60px;
 }
@@ -541,9 +611,10 @@ body {
 }
 
 .footer-links a {
-    color: #ccc;
+    color: #b8d4cc;
     text-decoration: none;
     transition: color 0.3s;
+    font-weight: 300;
 }
 
 .footer-links a:hover {
@@ -567,20 +638,22 @@ body {
 
 .filter-panel {
     background: white;
-    border-radius: 12px;
+    border-radius: 16px;
     padding: 25px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 16px rgba(16, 128, 100, 0.06);
     height: fit-content;
     position: sticky;
     top: 90px;
+    border: 1px solid rgba(16, 128, 100, 0.08);
 }
 
 .filter-panel h2 {
     font-size: 1.3rem;
     margin-bottom: 20px;
-    color: #2c3e50;
+    color: #108064;
     padding-bottom: 15px;
-    border-bottom: 2px solid #e0e6ed;
+    border-bottom: 2px solid #e0f0eb;
+    font-weight: 600;
 }
 
 .filter-group {
@@ -589,9 +662,9 @@ body {
 
 .filter-group label {
     display: block;
-    font-weight: 600;
+    font-weight: 500;
     margin-bottom: 8px;
-    color: #2c3e50;
+    color: #3d5a50;
     font-size: 0.9rem;
 }
 
@@ -600,17 +673,20 @@ body {
 .filter-group select {
     width: 100%;
     padding: 10px 12px;
-    border: 2px solid #e0e6ed;
-    border-radius: 6px;
+    border: 2px solid #e0f0eb;
+    border-radius: 8px;
     font-size: 0.9rem;
-    transition: border-color 0.3s;
+    font-family: 'Poppins', 'Noto Sans JP', sans-serif;
+    transition: all 0.3s;
+    background: #fafffe;
 }
 
 .filter-group input:focus,
 .filter-group select:focus {
     outline: none;
-    border-color: #1a5490;
-    box-shadow: 0 0 8px rgba(26, 84, 144, 0.1);
+    border-color: #108064;
+    box-shadow: 0 0 8px rgba(16, 128, 100, 0.1);
+    background: white;
 }
 
 .checkbox-group {
@@ -624,6 +700,7 @@ body {
     align-items: center;
     font-weight: 400;
     cursor: pointer;
+    color: #3d5a50;
 }
 
 .checkbox-group input[type="checkbox"] {
@@ -639,26 +716,29 @@ body {
 
 .map-container {
     background: white;
-    border-radius: 12px;
+    border-radius: 16px;
     padding: 20px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 16px rgba(16, 128, 100, 0.06);
+    border: 1px solid rgba(16, 128, 100, 0.08);
 }
 
 .parking-results {
     background: white;
-    border-radius: 12px;
+    border-radius: 16px;
     padding: 25px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 16px rgba(16, 128, 100, 0.06);
+    border: 1px solid rgba(16, 128, 100, 0.08);
 }
 
 .parking-results h2 {
     font-size: 1.5rem;
     margin-bottom: 25px;
-    color: #2c3e50;
+    color: #3d5a50;
+    font-weight: 600;
 }
 
 .parking-results h2 span {
-    color: #1a5490;
+    color: #108064;
     font-weight: 700;
 }
 
@@ -667,20 +747,21 @@ body {
     grid-template-columns: 180px 1fr;
     gap: 20px;
     padding: 20px;
-    border: 1px solid #e0e6ed;
-    border-radius: 8px;
+    border: 1px solid #e0f0eb;
+    border-radius: 12px;
     margin-bottom: 20px;
-    transition: box-shadow 0.3s;
+    transition: all 0.3s;
 }
 
 .parking-result-item:hover {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 6px 20px rgba(16, 128, 100, 0.1);
+    border-color: rgba(16, 128, 100, 0.2);
 }
 
 .result-image {
     width: 100%;
     height: 150px;
-    border-radius: 8px;
+    border-radius: 10px;
     background-size: cover;
     background-position: center;
 }
@@ -688,13 +769,15 @@ body {
 .result-info h3 {
     font-size: 1.3rem;
     margin-bottom: 8px;
-    color: #2c3e50;
+    color: #108064;
+    font-weight: 600;
 }
 
 .result-info .location {
     color: #666;
     font-size: 0.9rem;
     margin-bottom: 8px;
+    font-weight: 300;
 }
 
 .result-info .details {
@@ -707,16 +790,16 @@ body {
 .badge {
     display: inline-block;
     padding: 4px 10px;
-    background-color: #e8f5e9;
-    color: #2e7d32;
-    border-radius: 4px;
+    background-color: #e0f5eb;
+    color: #0a5c4a;
+    border-radius: 6px;
     font-size: 0.85rem;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .badge.price {
-    background-color: #fff3cd;
-    color: #856404;
+    background-color: #fef3c7;
+    color: #92400e;
 }
 
 .facilities {
@@ -729,33 +812,35 @@ body {
 .facility-tag {
     display: inline-block;
     padding: 4px 8px;
-    background-color: #f5f5f5;
-    color: #666;
-    border-radius: 4px;
+    background-color: #f0f8f5;
+    color: #108064;
+    border-radius: 6px;
     font-size: 0.85rem;
+    font-weight: 400;
 }
 
 .result-info .status {
     font-weight: 600;
     margin-bottom: 12px;
     padding: 8px 12px;
-    border-radius: 4px;
+    border-radius: 6px;
     display: inline-block;
+    font-size: 0.9rem;
 }
 
 .status.available {
-    color: #2e7d32;
-    background-color: #e8f5e9;
+    color: #0a5c4a;
+    background-color: #e0f5eb;
 }
 
 .status.moderate {
-    color: #f57c00;
-    background-color: #ffe0b2;
+    color: #b45309;
+    background-color: #fef3c7;
 }
 
 .status.full {
-    color: #c62828;
-    background-color: #ffebee;
+    color: #991b1b;
+    background-color: #fee2e2;
 }
 
 /* ========================================
@@ -775,7 +860,7 @@ body {
     background-position: center;
     color: white;
     font-size: 1.2rem;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .parking-detail {
@@ -798,13 +883,15 @@ body {
 .detail-left h1 {
     font-size: 2.2rem;
     margin-bottom: 10px;
-    color: #2c3e50;
+    color: #108064;
+    font-weight: 600;
 }
 
 .location-info {
     font-size: 1.1rem;
     color: #666;
     margin-bottom: 15px;
+    font-weight: 300;
 }
 
 .rating-section {
@@ -817,26 +904,28 @@ body {
 .rating {
     font-size: 1.3rem;
     font-weight: 700;
-    color: #f59e0b;
+    color: #10b981;
 }
 
 .review-count {
     color: #999;
     font-size: 0.95rem;
+    font-weight: 300;
 }
 
 .info-box {
-    background: #f8fafb;
-    border-radius: 12px;
+    background: #f5faf8;
+    border-radius: 16px;
     padding: 25px;
     margin-bottom: 30px;
-    border-left: 4px solid #1a5490;
+    border-left: 4px solid #108064;
 }
 
 .info-box h2 {
     font-size: 1.4rem;
     margin-bottom: 20px;
-    color: #2c3e50;
+    color: #108064;
+    font-weight: 600;
 }
 
 .info-grid {
@@ -848,7 +937,7 @@ body {
 .info-item {
     background: white;
     padding: 15px;
-    border-radius: 8px;
+    border-radius: 10px;
 }
 
 .info-item .label {
@@ -856,14 +945,14 @@ body {
     font-size: 0.85rem;
     color: #999;
     margin-bottom: 5px;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .info-item .value {
     display: block;
     font-size: 1.1rem;
-    color: #2c3e50;
-    font-weight: 700;
+    color: #108064;
+    font-weight: 600;
 }
 
 .facilities-list {
@@ -878,7 +967,7 @@ body {
     gap: 10px;
     padding: 12px;
     background: white;
-    border-radius: 8px;
+    border-radius: 10px;
 }
 
 .facility-icon {
@@ -886,7 +975,7 @@ body {
 }
 
 .facility-item span:last-child {
-    color: #2c3e50;
+    color: #3d5a50;
     font-weight: 500;
 }
 
@@ -902,27 +991,28 @@ body {
     gap: 15px;
     padding: 12px;
     background: white;
-    border-radius: 8px;
+    border-radius: 10px;
     align-items: start;
 }
 
 .access-item .label {
     font-weight: 600;
-    color: #2c3e50;
+    color: #3d5a50;
     font-size: 0.9rem;
 }
 
 .access-item .value {
     color: #666;
     line-height: 1.5;
+    font-weight: 300;
 }
 
 .access-item .value.alert {
-    color: #c62828;
-    font-weight: 600;
-    background-color: #ffebee;
+    color: #991b1b;
+    font-weight: 500;
+    background-color: #fee2e2;
     padding: 8px 12px;
-    border-radius: 4px;
+    border-radius: 6px;
 }
 
 .detail-right {
@@ -933,17 +1023,19 @@ body {
 
 .booking-card {
     background: white;
-    border-radius: 12px;
+    border-radius: 16px;
     padding: 25px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 16px rgba(16, 128, 100, 0.06);
+    border: 1px solid rgba(16, 128, 100, 0.08);
 }
 
 .booking-card h2 {
     font-size: 1.4rem;
     margin-bottom: 20px;
-    color: #2c3e50;
-    border-bottom: 2px solid #e0e6ed;
+    color: #108064;
+    border-bottom: 2px solid #e0f0eb;
     padding-bottom: 15px;
+    font-weight: 600;
 }
 
 .calendar-section {
@@ -953,13 +1045,14 @@ body {
 .calendar-section h3 {
     font-size: 1rem;
     margin-bottom: 15px;
-    color: #2c3e50;
+    color: #3d5a50;
+    font-weight: 600;
 }
 
 .calendar {
-    background: #f8fafb;
+    background: #f5faf8;
     padding: 15px;
-    border-radius: 8px;
+    border-radius: 10px;
     margin-bottom: 15px;
 }
 
@@ -975,18 +1068,19 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
+    font-weight: 300;
 }
 
 .legend-available {
-    color: #4caf50;
+    color: #0a5c4a;
 }
 
 .legend-limited {
-    color: #f59e0b;
+    color: #b45309;
 }
 
 .legend-full {
-    color: #f44336;
+    color: #991b1b;
 }
 
 .booking-form {
@@ -999,9 +1093,9 @@ body {
 
 .booking-form label {
     display: block;
-    font-weight: 600;
+    font-weight: 500;
     margin-bottom: 5px;
-    color: #2c3e50;
+    color: #3d5a50;
     font-size: 0.9rem;
 }
 
@@ -1009,23 +1103,26 @@ body {
 .booking-form select {
     width: 100%;
     padding: 10px 12px;
-    border: 2px solid #e0e6ed;
-    border-radius: 6px;
+    border: 2px solid #e0f0eb;
+    border-radius: 8px;
     font-size: 0.9rem;
-    transition: border-color 0.3s;
+    font-family: 'Poppins', 'Noto Sans JP', sans-serif;
+    transition: all 0.3s;
+    background: #fafffe;
 }
 
 .booking-form input:focus,
 .booking-form select:focus {
     outline: none;
-    border-color: #1a5490;
-    box-shadow: 0 0 8px rgba(26, 84, 144, 0.1);
+    border-color: #108064;
+    box-shadow: 0 0 8px rgba(16, 128, 100, 0.1);
+    background: white;
 }
 
 .price-summary {
-    background: #f8fafb;
+    background: #f5faf8;
     padding: 15px;
-    border-radius: 8px;
+    border-radius: 10px;
     margin-bottom: 20px;
 }
 
@@ -1033,21 +1130,21 @@ body {
     display: flex;
     justify-content: space-between;
     font-weight: 600;
-    color: #2c3e50;
+    color: #3d5a50;
     font-size: 1rem;
 }
 
 .cancellation-policy {
-    background: #fff3cd;
+    background: #fffbeb;
     border-left: 4px solid #f59e0b;
     padding: 15px;
-    border-radius: 8px;
+    border-radius: 10px;
     margin-top: 25px;
 }
 
 .cancellation-policy h3 {
     font-size: 0.95rem;
-    color: #856404;
+    color: #92400e;
     margin-bottom: 10px;
     font-weight: 600;
 }
@@ -1059,10 +1156,11 @@ body {
 
 .cancellation-policy li {
     font-size: 0.85rem;
-    color: #856404;
+    color: #92400e;
     margin-bottom: 5px;
     padding-left: 20px;
     position: relative;
+    font-weight: 300;
 }
 
 .cancellation-policy li:before {
@@ -1075,7 +1173,7 @@ body {
    利用ガイドページ
    ======================================== */
 .guide-container {
-    background: linear-gradient(135deg, #f8fafb 0%, #f0f4f8 100%);
+    background: linear-gradient(135deg, #f5faf8 0%, #f0f8f5 100%);
     padding: 60px 0;
 }
 
@@ -1087,7 +1185,8 @@ body {
     font-size: 2.2rem;
     text-align: center;
     margin-bottom: 50px;
-    color: #2c3e50;
+    color: #108064;
+    font-weight: 600;
 }
 
 .steps {
@@ -1100,17 +1199,18 @@ body {
 
 .step-card {
     background: white;
-    border-radius: 12px;
+    border-radius: 16px;
     padding: 30px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 16px rgba(16, 128, 100, 0.06);
+    transition: all 0.3s;
     position: relative;
     overflow: hidden;
+    border: 1px solid rgba(16, 128, 100, 0.08);
 }
 
 .step-card:hover {
     transform: translateY(-6px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 12px 32px rgba(16, 128, 100, 0.12);
 }
 
 .step-card::before {
@@ -1120,24 +1220,24 @@ body {
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(135deg, #1a5490 0%, #0f3d6a 100%);
+    background: linear-gradient(135deg, #108064 0%, #0a5c4a 100%);
 }
 
 .step-number {
     display: inline-block;
-    background: linear-gradient(135deg, #1a5490 0%, #0f3d6a 100%);
+    background: linear-gradient(135deg, #108064 0%, #0a5c4a 100%);
     color: white;
     padding: 8px 16px;
     border-radius: 6px;
-    font-weight: 700;
+    font-weight: 600;
     font-size: 0.85rem;
     margin-bottom: 15px;
 }
 
 .step-title {
     font-size: 1.4rem;
-    font-weight: 700;
-    color: #2c3e50;
+    font-weight: 600;
+    color: #108064;
     margin-bottom: 15px;
 }
 
@@ -1146,6 +1246,7 @@ body {
     font-size: 0.95rem;
     line-height: 1.7;
     margin-bottom: 10px;
+    font-weight: 300;
 }
 
 .step-content p:last-child {
@@ -1162,7 +1263,8 @@ body {
     font-size: 2.2rem;
     text-align: center;
     margin-bottom: 50px;
-    color: #2c3e50;
+    color: #108064;
+    font-weight: 600;
 }
 
 .faq-section .faq-list {
@@ -1171,26 +1273,27 @@ body {
 }
 
 .faq-section .faq-item {
-    background: #f8fafb;
-    border-radius: 8px;
+    background: #f5faf8;
+    border-radius: 10px;
     overflow: hidden;
-    border-left: 4px solid #1a5490;
+    border-left: 4px solid #108064;
 }
 
 .faq-section .faq-item summary {
     padding: 20px;
     cursor: pointer;
-    font-weight: 600;
-    color: #2c3e50;
+    font-weight: 500;
+    color: #3d5a50;
     display: flex;
     justify-content: space-between;
     align-items: center;
     user-select: none;
-    transition: background-color 0.2s;
+    transition: all 0.2s;
 }
 
 .faq-section .faq-item summary:hover {
-    background-color: #e8f0f8;
+    background-color: #e8f5f0;
+    color: #108064;
 }
 
 .faq-question {
@@ -1202,7 +1305,7 @@ body {
     font-size: 0.8rem;
     transition: transform 0.3s;
     margin-left: 20px;
-    color: #1a5490;
+    color: #108064;
     font-weight: 700;
 }
 
@@ -1215,6 +1318,7 @@ body {
     color: #666;
     line-height: 1.8;
     background: white;
+    font-weight: 300;
 }
 
 /* ========================================
@@ -1240,11 +1344,12 @@ body {
 
 .user-card {
     background: white;
-    border-radius: 12px;
+    border-radius: 16px;
     padding: 25px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 16px rgba(16, 128, 100, 0.06);
     text-align: center;
     margin-bottom: 25px;
+    border: 1px solid rgba(16, 128, 100, 0.08);
 }
 
 .user-avatar {
@@ -1254,37 +1359,40 @@ body {
 
 .user-name {
     font-size: 1.3rem;
-    color: #2c3e50;
+    color: #108064;
     margin-bottom: 5px;
+    font-weight: 600;
 }
 
 .user-email {
     color: #999;
     font-size: 0.9rem;
     margin-bottom: 15px;
+    font-weight: 300;
 }
 
 .btn-edit-profile {
     display: inline-block;
     padding: 8px 16px;
-    background: linear-gradient(135deg, #1a5490 0%, #0f3d6a 100%);
+    background: linear-gradient(135deg, #108064 0%, #0a5c4a 100%);
     color: white;
     border-radius: 6px;
     text-decoration: none;
     font-size: 0.85rem;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .mypage-menu ul {
     list-style: none;
     background: white;
-    border-radius: 12px;
+    border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 16px rgba(16, 128, 100, 0.06);
+    border: 1px solid rgba(16, 128, 100, 0.08);
 }
 
 .mypage-menu li {
-    border-bottom: 1px solid #e0e6ed;
+    border-bottom: 1px solid #e0f0eb;
 }
 
 .mypage-menu li:last-child {
@@ -1294,24 +1402,26 @@ body {
 .menu-link {
     display: block;
     padding: 15px 20px;
-    color: #2c3e50;
+    color: #3d5a50;
     text-decoration: none;
     cursor: pointer;
-    transition: background-color 0.2s, color 0.2s;
+    transition: all 0.2s;
+    font-weight: 400;
 }
 
 .menu-link:hover,
 .menu-link.active {
-    background-color: #f8fafb;
-    color: #1a5490;
+    background-color: #f5faf8;
+    color: #108064;
     font-weight: 600;
 }
 
 .mypage-content {
     background: white;
-    border-radius: 12px;
+    border-radius: 16px;
     padding: 25px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 16px rgba(16, 128, 100, 0.06);
+    border: 1px solid rgba(16, 128, 100, 0.08);
 }
 
 .mypage-tab {
@@ -1325,15 +1435,16 @@ body {
 .mypage-tab h2 {
     font-size: 1.6rem;
     margin-bottom: 25px;
-    color: #2c3e50;
+    color: #108064;
+    font-weight: 600;
 }
 
 .reservation-card {
-    background: #f8fafb;
-    border-radius: 8px;
+    background: #f5faf8;
+    border-radius: 12px;
     padding: 20px;
     margin-bottom: 20px;
-    border-left: 4px solid #1a5490;
+    border-left: 4px solid #108064;
 }
 
 .card-header {
@@ -1345,42 +1456,44 @@ body {
 
 .card-title h3 {
     font-size: 1.2rem;
-    color: #2c3e50;
+    color: #108064;
     margin-bottom: 5px;
+    font-weight: 600;
 }
 
 .card-location {
     color: #666;
     font-size: 0.9rem;
+    font-weight: 300;
 }
 
 .status-badge {
     display: inline-block;
     padding: 6px 12px;
-    border-radius: 20px;
+    border-radius: 6px;
     font-size: 0.85rem;
     font-weight: 600;
 }
 
 .status-badge.upcoming {
-    background-color: #e3f2fd;
-    color: #1565c0;
+    background-color: #e0f5eb;
+    color: #0a5c4a;
 }
 
 .status-badge.completed {
-    background-color: #e8f5e9;
-    color: #2e7d32;
+    background-color: #e0f5eb;
+    color: #0a5c4a;
 }
 
 .status-badge.canceled {
-    background-color: #ffebee;
-    color: #c62828;
+    background-color: #fee2e2;
+    color: #991b1b;
 }
 
 .card-body {
     background: white;
     padding: 15px;
-    border-radius: 6px;
+    border-radius: 8px;
     margin-bottom: 15px;
 }
 
@@ -1388,6 +1501,7 @@ body {
     color: #666;
     font-size: 0.95rem;
     margin-bottom: 8px;
+    font-weight: 300;
 }
 
 .card-body p:last-child {
@@ -1404,14 +1518,14 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 30px;
-    background: #f8fafb;
+    background: #f5faf8;
     padding: 25px;
-    border-radius: 8px;
+    border-radius: 12px;
 }
 
 .qrcode-box {
     background: white;
-    border-radius: 8px;
+    border-radius: 10px;
     padding: 40px;
     display: flex;
     align-items: center;
@@ -1428,6 +1542,7 @@ body {
 
 .qrcode-info p {
     color: #666;
+    font-weight: 300;
 }
 
 .receipts-list {
@@ -1440,15 +1555,16 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #f8fafb;
+    background: #f5faf8;
     padding: 15px;
-    border-radius: 8px;
+    border-radius: 10px;
 }
 
 .receipt-info p {
     color: #666;
     font-size: 0.95rem;
     margin-bottom: 5px;
+    font-weight: 300;
 }
 
 .receipt-info p:last-child {
@@ -1456,21 +1572,23 @@ body {
 }
 
 .settings-box {
-    background: #f8fafb;
+    background: #f5faf8;
     padding: 20px;
-    border-radius: 8px;
+    border-radius: 10px;
     margin-bottom: 25px;
 }
 
 .settings-box h3 {
     font-size: 1.1rem;
-    color: #2c3e50;
+    color: #108064;
     margin-bottom: 15px;
+    font-weight: 600;
 }
 
 .settings-box p {
     color: #666;
     margin-bottom: 10px;
+    font-weight: 300;
 }
 
 .settings-box label {
@@ -1479,6 +1597,7 @@ body {
     gap: 8px;
     margin-bottom: 10px;
     cursor: pointer;
+    color: #3d5a50;
 }
 
 .settings-box input[type="checkbox"] {
@@ -1543,6 +1662,32 @@ body {
     .qrcode-card {
         grid-template-columns: 1fr;
     }
+
+    .nav-menu {
+        position: absolute;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background: white;
+        flex-direction: column;
+        padding: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        z-index: 99;
+    }
+
+    .nav-menu.active {
+        display: flex !important;
+    }
+
+    .nav-menu li {
+        margin: 10px 0;
+        border-bottom: 1px solid #e0f0eb;
+        padding-bottom: 10px;
+    }
+
+    .hamburger-btn {
+        display: block;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1556,11 +1701,6 @@ body {
 
     .search-bar {
         padding: 20px;
-    }
-
-    .nav-menu {
-        flex-direction: column;
-        gap: 10px;
     }
 
     .parking-list {
