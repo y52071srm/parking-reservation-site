@@ -1,5 +1,5 @@
 /* ========================================
-   八ヶ岳駐車場予約システム - 最終版
+   八ヶ岳駐車場予約システム - 最終版（ヒーロー背景画像付き）
    透明感のある明るい緑 × Noto Sans JP
    ======================================== */
 
@@ -89,26 +89,40 @@ body {
 }
 
 /* ========================================
-   ヒーロー
+   ヒーロー（山の背景画像付き）
    ======================================== */
 .hero {
-    background: linear-gradient(135deg, rgba(45, 125, 107, 0.88) 0%, rgba(31, 90, 75, 0.88) 100%);
+    background: linear-gradient(135deg, rgba(45, 125, 107, 0.7) 0%, rgba(31, 90, 75, 0.7) 100%),
+                url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1400&h=700&fit=crop') center / cover no-repeat;
+    background-attachment: fixed;
     color: white;
-    padding: 120px 20px;
+    padding: 150px 20px;
     text-align: center;
+    position: relative;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
 }
 
 .hero-content h1 {
-    font-size: 3.2rem;
+    font-size: 3.5rem;
     margin-bottom: 15px;
     font-weight: 700;
     line-height: 1.2;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .hero-content p {
-    font-size: 1.25rem;
-    opacity: 0.95;
+    font-size: 1.3rem;
+    opacity: 0.98;
     font-weight: 400;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
 }
 
 .page-header {
@@ -857,7 +871,6 @@ body {
     font-weight: 400;
 }
 
-/* 駐車場未選択メッセージ */
 .no-selection-box {
     background: #f0f8f5;
     border: 2px dashed #2d7d6b;
@@ -884,7 +897,6 @@ body {
     font-weight: 400;
 }
 
-/* 駐車場情報ボックス */
 .info-box {
     background: #f5faf8;
     border-radius: 16px;
@@ -1445,13 +1457,11 @@ body {
     border-top: none;
 }
 
-/* 予約済みカード */
 .reservation-card.reserved {
     background: linear-gradient(135deg, #e0f5eb 0%, #d1ede5 100%);
     border-left: 4px solid #2d7d6b;
 }
 
-/* 利用済みカード */
 .reservation-card.completed {
     background: linear-gradient(135deg, #f0fdf4 0%, #e0fbe5 100%);
     border-left: 4px solid #10b981;
@@ -1648,6 +1658,11 @@ body {
 }
 
 @media (max-width: 768px) {
+    .hero {
+        padding: 100px 20px;
+        min-height: 500px;
+    }
+
     .hero-content h1 {
         font-size: 2rem;
     }
@@ -1687,6 +1702,11 @@ body {
 }
 
 @media (max-width: 480px) {
+    .hero {
+        padding: 80px 20px;
+        min-height: 400px;
+    }
+
     .hero-content h1 {
         font-size: 1.5rem;
     }
