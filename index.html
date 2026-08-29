@@ -9,7 +9,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* ハンバーガーメニュー用追加スタイル */
         .hamburger-btn {
             display: none;
             background: none;
@@ -110,7 +109,6 @@
             </header>
 
             <div class="container">
-                <!-- ダイレクト検索バー -->
                 <section class="search-bar-section">
                     <div class="search-bar">
                         <h2>駐車場を探す</h2>
@@ -130,7 +128,6 @@
                     </div>
                 </section>
 
-                <!-- 特徴セクション -->
                 <section class="features">
                     <h2>八ヶ岳駐車場予約の特徴</h2>
                     <div class="features-grid">
@@ -157,7 +154,6 @@
                     </div>
                 </section>
 
-                <!-- 人気駐車場 -->
                 <section class="popular-parking">
                     <h2>人気の駐車場</h2>
                     <div class="parking-list">
@@ -205,7 +201,6 @@
                     </div>
                 </section>
 
-                <!-- FAQ プレビュー -->
                 <section class="faq-preview">
                     <h2>よくある質問</h2>
                     <div class="faq-list">
@@ -225,7 +220,6 @@
                     <a href="#" onclick="showSection('guide'); return false;" class="link-more">全てのFAQを見る →</a>
                 </section>
 
-                <!-- CTA -->
                 <section class="cta-section">
                     <h2>今すぐ駐車場を予約</h2>
                     <p>八ヶ岳での登山をもっと快適に</p>
@@ -243,7 +237,6 @@
 
             <div class="container search-container">
                 <div class="search-layout">
-                    <!-- フィルター -->
                     <aside class="filter-panel">
                         <h2>検索条件</h2>
                         
@@ -280,7 +273,6 @@
                         <button class="btn-reset" onclick="resetFilters()">リセット</button>
                     </aside>
 
-                    <!-- 検索結果 -->
                     <section class="search-result">
                         <div class="map-container">
                             <div id="map" style="width: 100%; height: 400px; border-radius: 12px;"></div>
@@ -359,9 +351,7 @@
 
             <section class="parking-detail">
                 <div class="container detail-layout">
-                    <!-- 詳細情報 -->
                     <div class="detail-left">
-                        <!-- 駐車場未選択時のメッセージ -->
                         <div id="no-selection-message" class="no-selection-box">
                             <div class="no-selection-icon">🅿️</div>
                             <h2>まだ駐車場が選択されていません</h2>
@@ -369,7 +359,6 @@
                             <button class="btn-primary" onclick="showSection('search'); return false;">駐車場を探す</button>
                         </div>
 
-                        <!-- 駐車場選択後のコンテンツ -->
                         <div id="parking-details" style="display: none;">
                             <h1 id="detail-parking-name">赤岳山荘駐車場</h1>
                             <p class="location-info">📍 赤岳登山口 | 標高 2,000m</p>
@@ -378,7 +367,6 @@
                                 <span class="review-count">(120件の評価)</span>
                             </div>
 
-                            <!-- 駐車場画像 -->
                             <div class="parking-image-container" style="background-color: #d4f1e8; height: 300px; margin: 30px 0; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #2d7d6b; font-size: 4rem;">
                                 🏞️
                             </div>
@@ -455,7 +443,6 @@
                         </div>
                     </div>
 
-                    <!-- 予約フォーム -->
                     <aside class="detail-right">
                         <div class="booking-card" id="booking-card" style="display: none;">
                             <h2>予約・決済</h2>
@@ -682,7 +669,6 @@
 
             <div class="container mypage-container">
                 <div class="mypage-layout">
-                    <!-- ユーザー情報 -->
                     <aside class="mypage-sidebar">
                         <div class="user-card">
                             <div class="user-avatar">👤</div>
@@ -700,9 +686,7 @@
                         </nav>
                     </aside>
 
-                    <!-- コンテンツ -->
                     <section class="mypage-content">
-                        <!-- 予約履歴 -->
                         <div id="reservations-tab" class="mypage-tab active">
                             <h2>📅 予約履歴</h2>
                             
@@ -743,7 +727,6 @@
                             </div>
                         </div>
 
-                        <!-- QRコード -->
                         <div id="qrcode-tab" class="mypage-tab">
                             <h2>📱 予約用QRコード</h2>
                             <p>当日、駐車場での入場時にこの QRコードを提示してください。</p>
@@ -758,7 +741,6 @@
                             </div>
                         </div>
 
-                        <!-- 領収書 -->
                         <div id="receipts-tab" class="mypage-tab">
                             <h2>🧾 領収書</h2>
                             <p>過去の利用に関する領収書をダウンロードできます。</p>
@@ -774,7 +756,6 @@
                             </div>
                         </div>
 
-                        <!-- 設定 -->
                         <div id="settings-tab" class="mypage-tab">
                             <h2>⚙️ 設定</h2>
                             <div class="settings-box">
@@ -807,9 +788,6 @@
         </div>
     </footer>
 
-    <!-- Google Maps API -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxj8Ucfm5q0y3tenl1z5QhFaJFDF9qM8"></script>
-
     <script>
         // ハンバーガーメニュー
         function toggleMenu() {
@@ -835,32 +813,23 @@
             window.scrollTo(0, 0);
         }
 
-        // ホーム検索→自動移動＆反映
+        // ホーム検索→自動移動
         function searchAndNavigate(event) {
             event.preventDefault();
             const area = document.getElementById('home-search-area').value;
             const date = document.getElementById('home-search-date').value;
-            
-            // 検索ページのフィルターに値を設定
             document.getElementById('filter-area-search').value = area;
             document.getElementById('filter-date-search').value = date;
-            
-            // 検索ページに移動
             showSection('search');
         }
 
         // 駐車場選択
         function selectParking(name, price) {
-            // 詳細ページに移動
             showSection('detail');
-            
-            // 詳細ページの内容を表示
             document.getElementById('no-selection-message').style.display = 'none';
             document.getElementById('parking-details').style.display = 'block';
             document.getElementById('booking-card').style.display = 'block';
             document.getElementById('booking-empty-message').style.display = 'none';
-            
-            // 駐車場情報を更新
             document.getElementById('detail-parking-name').textContent = name;
             document.getElementById('selected-parking-name').textContent = name;
             document.getElementById('detail-price').textContent = '¥' + price + '/日';
@@ -870,7 +839,6 @@
         // 予約フォーム送信
         function submitBooking(event) {
             event.preventDefault();
-            
             const name = document.getElementById('user-name').value;
             const email = document.getElementById('user-email').value;
             const phone = document.getElementById('user-phone').value;
@@ -878,40 +846,21 @@
             const bookingDate = document.getElementById('booking-date').value;
             const carNumber = document.getElementById('car-number').value;
             
-            // Formspreeへの送信
-            const formData = new FormData();
-            formData.append('name', name);
-            formData.append('email', email);
-            formData.append('phone', phone);
-            formData.append('parking', parkingName);
-            formData.append('date', bookingDate);
-            formData.append('car_number', carNumber);
-            
-            // y.52071.srm@gmail.comへメール送信
-            const mailToLink = `mailto:y.52071.srm@gmail.com?subject=駐車場予約：${parkingName}&body=氏名：${name}%0A%0Aメールアドレス：${email}%0A%0A電話番号：${phone}%0A%0A駐車場：${parkingName}%0A%0A予約日：${bookingDate}%0A%0A車のナンバー：${carNumber}`;
-            
             alert('予約を進めました。確認メールをお送りします。');
             console.log('予約情報:', {name, email, phone, parkingName, bookingDate, carNumber});
         }
 
         // マイページのタブ切り替え
         function switchTab(tabName) {
-            // 全タブを非表示
             document.querySelectorAll('.mypage-tab').forEach(tab => tab.classList.remove('active'));
-            // 全メニューをアクティブ解除
             document.querySelectorAll('.menu-link').forEach(link => link.classList.remove('active'));
-            
-            // 選択したタブを表示
             const targetTab = document.getElementById(tabName + '-tab');
             if (targetTab) targetTab.classList.add('active');
-            
-            // メニューをアクティブ化
             const activeLink = document.querySelector(`[data-tab="${tabName}"]`);
             if (activeLink) activeLink.classList.add('active');
         }
 
-        // Google Maps 初期化
-        let map;
+        // Google Maps初期化
         const parkingLocations = [
             {
                 name: '赤岳山荘駐車場',
@@ -934,74 +883,29 @@
         ];
 
         function initMap() {
-            // 八ヶ岳の中心座標
-            const center = { lat: 35.91, lng: 138.35 };
+            if (!document.getElementById('map')) return;
             
-            map = new google.maps.Map(document.getElementById('map'), {
+            const center = { lat: 35.91, lng: 138.35 };
+            const map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 11,
                 center: center,
-                styles: [
-                    {
-                        "elementType": "geometry",
-                        "stylers": [
-                            {
-                                "color": "#f5faf8"
-                            }
-                        ]
-                    },
-                    {
-                        "elementType": "labels.text.stroke",
-                        "stylers": [
-                            {
-                                "color": "#ffffff"
-                            }
-                        ]
-                    },
-                    {
-                        "elementType": "labels.text.fill",
-                        "stylers": [
-                            {
-                                "color": "#3d5a50"
-                            }
-                        ]
-                    },
-                    {
-                        "featureType": "water",
-                        "elementType": "geometry",
-                        "stylers": [
-                            {
-                                "color": "#d1ede5"
-                            }
-                        ]
-                    },
-                    {
-                        "featureType": "road",
-                        "elementType": "geometry.stroke",
-                        "stylers": [
-                            {
-                                "color": "#e0f0eb"
-                            }
-                        ]
-                    }
-                ]
+                mapTypeControl: true,
+                fullscreenControl: true
             });
 
-            // マーカーを追加
             parkingLocations.forEach(location => {
                 const marker = new google.maps.Marker({
                     position: { lat: location.lat, lng: location.lng },
                     map: map,
-                    title: location.name,
-                    icon: 'http://maps.google.com/mapfiles/ms/icons/2d7d6b-pushpin.png'
+                    title: location.name
                 });
 
-                // インフォウィンドウ
                 const infoWindow = new google.maps.InfoWindow({
                     content: `
-                        <div style="font-family: 'Noto Sans JP', sans-serif; color: #3d5a50;">
-                            <h3 style="margin: 5px 0; color: #2d7d6b; font-weight: 700;">${location.name}</h3>
+                        <div style="font-family: 'Noto Sans JP', sans-serif; color: #3d5a50; padding: 10px;">
+                            <h3 style="margin: 5px 0; color: #2d7d6b; font-weight: 700; font-size: 1rem;">${location.name}</h3>
                             <p style="margin: 5px 0; font-size: 0.9rem;">${location.info}</p>
-                            <button onclick="selectParking('${location.name}', 1000)" style="background: linear-gradient(135deg, #2d7d6b 0%, #1f5a4b 100%); color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 0.85rem;">詳細・予約</button>
+                            <button onclick="selectParking('${location.name}', 1000)" style="background: linear-gradient(135deg, #2d7d6b 0%, #1f5a4b 100%); color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 0.85rem; margin-top: 8px;">詳細・予約</button>
                         </div>
                     `
                 });
@@ -1015,14 +919,15 @@
         // ページロード時
         document.addEventListener('DOMContentLoaded', () => {
             showSection('home');
-            // 少し遅延させて地図を初期化（DOM完全読み込み後）
             setTimeout(() => {
-                if (document.getElementById('map')) {
+                if (typeof google !== 'undefined' && document.getElementById('map')) {
                     initMap();
                 }
             }, 500);
         });
     </script>
-    <script src="main.js"></script>
+
+    <!-- Google Maps API（async/defer） -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxj8Ucfm5q0y3tenl1z5QhFaJFDF9qM8"></script>
 </body>
 </html>
