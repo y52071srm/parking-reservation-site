@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style_final_hero.css">
+    <link rel="stylesheet" href="style.css">
     <style>
         .hamburger-btn {
             display: none;
@@ -628,6 +628,7 @@
     </footer>
 
     <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/build/index.min.js"></script>
 
     <script>
         // 駐車場データ
@@ -931,6 +932,10 @@
 
                 if (paymentIntent.status === 'succeeded') {
                     alert('決済が完了しました！予約確認メールを送信しました。');
+                    
+                    // メール送信
+                    sendConfirmationEmail(name, email, phone, parkingName, bookingDate, carNumber, price, paymentIntent.id);
+                    
                     console.log('予約完了:', {
                         name, 
                         email, 
@@ -1006,6 +1011,10 @@
             showSection('home');
             renderHomeParking();
             renderSearchParking();
+            
+            // EmailJS 初期化（公開キー）
+            emailjs.init('lMWvbFhVKFYmPJ2xA');
+            
             setTimeout(() => {
                 if (typeof google !== 'undefined' && document.getElementById('map')) {
                     initMap();
@@ -1022,6 +1031,28 @@
             document.getElementById('filter-date-search').value = '';
             document.getElementById('filter-price').value = '';
             renderSearchParking();
+        }
+
+        // EmailJS でメール送信
+        function sendConfirmationEmail(name, email, phone, parkingName, bookingDate, carNumber, price, paymentIntentId) {
+            const templateParams = {
+                to_email: email,
+                user_name: name,
+                parking_name: parkingName,
+                booking_date: bookingDate,
+                car_number: carNumber,
+                price: price === 0 ? '無料' : `¥${price}`,
+                phone: phone,
+                payment_id: paymentIntentId,
+                qr_code: `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=BOOKING_${paymentIntentId}`
+            };
+
+            emailjs.send('service_parking', 'template_confirmation', templateParams)
+                .then(function(response) {
+                    console.log('メール送信成功:', response.status);
+                }, function(error) {
+                    console.log('メール送信失敗:', error);
+                });
         }
     </script>
 
