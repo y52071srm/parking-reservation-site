@@ -40,6 +40,30 @@
             transform: rotate(-45deg) translate(7px, -7px);
         }
 
+        /* Stripe Elements スタイル */
+        .StripeElement {
+            box-sizing: border-box;
+            height: 40px;
+            padding: 10px 12px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            background-color: white;
+            box-shadow: 0 1px 3px 0 #e6ebf1;
+            -webkit-font-smoothing: antialiased;
+            font-size: 16px;
+            font-family: 'Noto Sans JP', sans-serif;
+            color: #495057;
+        }
+
+        .StripeElement--focus {
+            box-shadow: 0 1px 3px 0 #cfd7df;
+            border-color: #2d7d6b;
+        }
+
+        .StripeElement--invalid {
+            border-color: #fa755a;
+        }
+
         @media (max-width: 768px) {
             .hamburger-btn {
                 display: block;
@@ -326,25 +350,11 @@
                                     </div>
                                 </div>
 
-                                <!-- シンプルなカード情報入力フォーム -->
+                                <!-- Stripe Elements カード入力 -->
                                 <div style="border: 2px solid #e0f0eb; border-radius: 10px; padding: 20px; margin-bottom: 20px;">
                                     <h3 style="color: #2d7d6b; margin-bottom: 15px; font-weight: 700;">クレジットカード情報</h3>
-                                    
-                                    <div class="form-group">
-                                        <label for="card-number">カード番号 *</label>
-                                        <input type="text" id="card-number" placeholder="1234 5678 9012 3456" maxlength="19" required>
-                                    </div>
-
-                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                                        <div class="form-group">
-                                            <label for="card-expiry">有効期限 *</label>
-                                            <input type="text" id="card-expiry" placeholder="MM/YY" maxlength="5" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="card-cvc">CVC *</label>
-                                            <input type="text" id="card-cvc" placeholder="123" maxlength="4" required>
-                                        </div>
-                                    </div>
+                                    <div id="card-element"></div>
+                                    <div id="card-errors" role="alert" style="color: #d32f2f; margin-top: 10px;"></div>
                                 </div>
 
                                 <div id="payment-message" style="display: none; color: #d32f2f; margin: 10px 0; padding: 10px; background-color: #ffebee; border-radius: 6px;"></div>
@@ -627,10 +637,20 @@
         </div>
     </footer>
 
+    <!-- Stripe.js -->
     <script src="https://js.stripe.com/v3/"></script>
+    <!-- EmailJS -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/build/index.min.js"></script>
 
     <script>
+        // Stripe 初期化
+        const stripe = Stripe('pk_test_51U9hS4GuzBXuIGVYZ2DgItsNjCzLLD2BOU1HUM03lSPBJ0pXuuam6pI8QKthBlMc4kei3yLTzHwi6IUcEnWwPIIa00YeAWN6vV');
+        const elements = stripe.elements();
+        const cardElement = elements.create('card', {
+            hidePostalCode: true
+        });
+        let cardElementMounted = false;
+
         // 駐車場データ
         const parkingLocations = [
             {
@@ -831,6 +851,27 @@
                 return `<div class="facility-item"><span class="facility-icon">${icons[f] || '✓'}</span><span>${f}</span></div>`;
             }).join('');
             document.getElementById('detail-facilities').innerHTML = facilitiesHtml;
+
+            // Card Element をマウント（初回のみ）
+            if (!cardElementMounted && price > 0) {
+                setTimeout(() => {
+                    const container = document.getElementById('card-element');
+                    if (container && !cardElement._frame) {
+                        cardElement.mount('#card-element');
+                        cardElementMounted = true;
+                        
+                        // エラーハンドリング
+                        cardElement.addEventListener('change', (event) => {
+                            const displayError = document.getElementById('card-errors');
+                            if (event.error) {
+                                displayError.textContent = event.error.message;
+                            } else {
+                                displayError.textContent = '';
+                            }
+                        });
+                    }
+                }, 100);
+            }
         }
 
         // 予約フォーム送信
@@ -852,46 +893,35 @@
                 document.getElementById('booking-form').reset();
             } else {
                 // 有料駐車場：Stripe 決済へ
-                handleStripePayment(name, email, phone, parkingName, bookingDate, carNumber, price);
+                await handleStripePayment(name, email, phone, parkingName, bookingDate, carNumber, price);
             }
         }
 
-        // Stripe 初期化
-        const stripe = Stripe('pk_test_51U9hS4GuzBXuIGVYZ2DgItsNjCzLLD2BOU1HUM03lSPBJ0pXuuam6pI8QKthBlMc4kei3yLTzHwi6IUcEnWwPIIa00YeAWN6vV');
-
+        // Stripe 決済処理
         async function handleStripePayment(name, email, phone, parkingName, bookingDate, carNumber, price) {
             const submitBtn = document.getElementById('submit-btn');
             submitBtn.disabled = true;
             submitBtn.textContent = '処理中...';
 
             try {
-                // フォームから情報を取得
-                const cardNumber = document.getElementById('card-number').value.replace(/\s/g, '');
-                const cardExpiry = document.getElementById('card-expiry').value;
-                const cardCvc = document.getElementById('card-cvc').value;
+                // Payment Method を作成
+                const { paymentMethod, error } = await stripe.createPaymentMethod({
+                    type: 'card',
+                    card: cardElement,
+                    billing_details: {
+                        name: name,
+                        email: email,
+                        phone: phone
+                    }
+                });
 
-                // バリデーション
-                if (!cardNumber || cardNumber.length < 13) {
-                    throw new Error('カード番号が正しくありません');
-                }
-                if (!cardExpiry || !cardExpiry.includes('/')) {
-                    throw new Error('有効期限が正しくありません（MM/YY形式）');
-                }
-                if (!cardCvc || cardCvc.length < 3) {
-                    throw new Error('CVCが正しくありません');
+                if (error) {
+                    throw new Error(error.message);
                 }
 
-                // 有効期限をパース
-                const [expMonth, expYear] = cardExpiry.split('/');
-                const exp_month = parseInt(expMonth);
-                const exp_year = parseInt('20' + expYear);
-
-                // テストモード：決済成功（シンプル版）
-                // ※ 本番環境ではサーバーサイドで Stripe API を呼び出してください
-                
+                // 決済成功（テストモード）
                 alert('決済が完了しました！予約確認メールを送信しました。');
                 
-                // 決済ID（テスト用）
                 const paymentId = 'pi_test_' + Date.now();
                 
                 // メール送信
@@ -905,11 +935,14 @@
                     bookingDate, 
                     carNumber, 
                     price,
-                    paymentIntentId: paymentId,
-                    cardLast4: cardNumber.slice(-4)
+                    paymentMethodId: paymentMethod.id
                 });
-                
+
                 document.getElementById('booking-form').reset();
+                cardElement.clear();
+                submitBtn.disabled = false;
+                submitBtn.textContent = '予約・決済へ進む';
+
             } catch (error) {
                 const messageContainer = document.getElementById('payment-message');
                 messageContainer.textContent = `エラー: ${error.message}`;
@@ -917,6 +950,29 @@
                 submitBtn.disabled = false;
                 submitBtn.textContent = '予約・決済へ進む';
             }
+        }
+
+        // EmailJS でメール送信
+        function sendConfirmationEmail(name, email, phone, parkingName, bookingDate, carNumber, price, paymentId) {
+            const templateParams = {
+                to_email: email,
+                user_name: name,
+                parking_name: parkingName,
+                booking_date: bookingDate,
+                car_number: carNumber,
+                price: price === 0 ? '無料' : `¥${price}`,
+                phone: phone,
+                payment_id: paymentId,
+                qr_code: `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=BOOKING_${paymentId}`
+            };
+
+            emailjs.init('lMWvbFhVKFYmPJ2xA');
+            emailjs.send('service_parking', 'template_confirmation', templateParams)
+                .then(function(response) {
+                    console.log('メール送信成功:', response.status);
+                }, function(error) {
+                    console.log('メール送信失敗:', error);
+                });
         }
 
         // マイページのタブ切り替え
@@ -969,10 +1025,6 @@
             showSection('home');
             renderHomeParking();
             renderSearchParking();
-            
-            // EmailJS 初期化（公開キー）
-            emailjs.init('lMWvbFhVKFYmPJ2xA');
-            
             setTimeout(() => {
                 if (typeof google !== 'undefined' && document.getElementById('map')) {
                     initMap();
@@ -989,28 +1041,6 @@
             document.getElementById('filter-date-search').value = '';
             document.getElementById('filter-price').value = '';
             renderSearchParking();
-        }
-
-        // EmailJS でメール送信
-        function sendConfirmationEmail(name, email, phone, parkingName, bookingDate, carNumber, price, paymentIntentId) {
-            const templateParams = {
-                to_email: email,
-                user_name: name,
-                parking_name: parkingName,
-                booking_date: bookingDate,
-                car_number: carNumber,
-                price: price === 0 ? '無料' : `¥${price}`,
-                phone: phone,
-                payment_id: paymentIntentId,
-                qr_code: `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=BOOKING_${paymentIntentId}`
-            };
-
-            emailjs.send('service_parking', 'template_confirmation', templateParams)
-                .then(function(response) {
-                    console.log('メール送信成功:', response.status);
-                }, function(error) {
-                    console.log('メール送信失敗:', error);
-                });
         }
     </script>
 
