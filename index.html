@@ -646,10 +646,25 @@
         // Stripe 初期化
         const stripe = Stripe('pk_test_51U9hS4GuzBXuIGVYZ2DgItsNjCzLLD2BOU1HUM03lSPBJ0pXuuam6pI8QKthBlMc4kei3yLTzHwi6IUcEnWwPIIa00YeAWN6vV');
         const elements = stripe.elements();
-        const cardElement = elements.create('card', {
-            hidePostalCode: true
-        });
+        let cardElement = null;
         let cardElementMounted = false;
+
+        // Card Element を初期化する関数
+        function initCardElement() {
+            if (!cardElement) {
+                cardElement = elements.create('card', {
+                    hidePostalCode: true,
+                    style: {
+                        base: {
+                            fontSize: '16px',
+                            color: '#495057',
+                            fontFamily: "'Noto Sans JP', sans-serif"
+                        }
+                    }
+                });
+            }
+            return cardElement;
+        }
 
         // 駐車場データ
         const parkingLocations = [
@@ -852,25 +867,32 @@
             }).join('');
             document.getElementById('detail-facilities').innerHTML = facilitiesHtml;
 
-            // Card Element をマウント（初回のみ）
-            if (!cardElementMounted && price > 0) {
+            // Card Element をマウント（有料駐車場の場合）
+            if (price > 0) {
                 setTimeout(() => {
                     const container = document.getElementById('card-element');
-                    if (container && !cardElement._frame) {
-                        cardElement.mount('#card-element');
-                        cardElementMounted = true;
-                        
-                        // エラーハンドリング
-                        cardElement.addEventListener('change', (event) => {
-                            const displayError = document.getElementById('card-errors');
-                            if (event.error) {
-                                displayError.textContent = event.error.message;
-                            } else {
-                                displayError.textContent = '';
-                            }
-                        });
+                    if (container && !cardElementMounted) {
+                        try {
+                            const card = initCardElement();
+                            card.mount('#card-element');
+                            cardElementMounted = true;
+                            
+                            // エラーハンドリング
+                            card.addEventListener('change', (event) => {
+                                const displayError = document.getElementById('card-errors');
+                                if (event.error) {
+                                    displayError.textContent = event.error.message;
+                                } else {
+                                    displayError.textContent = '';
+                                }
+                            });
+                            
+                            console.log('✅ Card Element マウント成功');
+                        } catch (e) {
+                            console.error('❌ Card Element マウント失敗:', e);
+                        }
                     }
-                }, 100);
+                }, 300);
             }
         }
 
@@ -904,10 +926,12 @@
             submitBtn.textContent = '処理中...';
 
             try {
+                const card = initCardElement();
+                
                 // Payment Method を作成
                 const { paymentMethod, error } = await stripe.createPaymentMethod({
                     type: 'card',
-                    card: cardElement,
+                    card: card,
                     billing_details: {
                         name: name,
                         email: email,
@@ -939,7 +963,10 @@
                 });
 
                 document.getElementById('booking-form').reset();
-                cardElement.clear();
+                if (card) {
+                    card.clear();
+                }
+                cardElementMounted = false;
                 submitBtn.disabled = false;
                 submitBtn.textContent = '予約・決済へ進む';
 
