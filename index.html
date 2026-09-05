@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style_final_hero.css">
     <style>
         .hamburger-btn {
             display: none;
@@ -627,6 +627,8 @@
         </div>
     </footer>
 
+    <script src="https://js.stripe.com/v3/"></script>
+
     <script>
         // 駐車場データ
         const parkingLocations = [
@@ -830,8 +832,8 @@
             document.getElementById('detail-facilities').innerHTML = facilitiesHtml;
         }
 
-        // 予約フォーム送信（簡易版）
-        function submitBooking(event) {
+        // 予約フォーム送信
+        async function submitBooking(event) {
             event.preventDefault();
             const name = document.getElementById('user-name').value;
             const email = document.getElementById('user-email').value;
@@ -848,12 +850,15 @@
                 console.log('予約完了:', {name, email, phone, parkingName, bookingDate, carNumber});
                 document.getElementById('booking-form').reset();
             } else {
-                // 有料駐車場：カード情報検証
-                handleSimplePayment(name, email, phone, parkingName, bookingDate, carNumber, price);
+                // 有料駐車場：Stripe 決済へ
+                handleStripePayment(name, email, phone, parkingName, bookingDate, carNumber, price);
             }
         }
 
-        function handleSimplePayment(name, email, phone, parkingName, bookingDate, carNumber, price) {
+        // Stripe 初期化
+        const stripe = Stripe('pk_test_51U9hS4GuzBXuIGVYZ2DgItsNjCzLLD2BOU1HUM03lSPBJ0pXuuam6pI8QKthBlMc4kei3yLTzHwi6IUcEnWwPIIa00YeAWN6vV');
+
+        async function handleStripePayment(name, email, phone, parkingName, bookingDate, carNumber, price) {
             const submitBtn = document.getElementById('submit-btn');
             submitBtn.disabled = true;
             submitBtn.textContent = '処理中...';
@@ -875,25 +880,73 @@
                     throw new Error('CVCが正しくありません');
                 }
 
-                // テストモード：決済完了
-                alert('決済が完了しました！予約確認メールをお送りします。');
-                console.log('予約完了:', {
-                    name, 
-                    email, 
-                    phone, 
-                    parkingName, 
-                    bookingDate, 
-                    carNumber, 
-                    price,
-                    cardLast4: cardNumber.slice(-4)
+                // 有効期限をパース
+                const [expMonth, expYear] = cardExpiry.split('/');
+                const exp_month = parseInt(expMonth);
+                const exp_year = parseInt('20' + expYear);
+
+                // Payment Method を作成
+                const { paymentMethod, error: pmError } = await stripe.createPaymentMethod({
+                    type: 'card',
+                    card: {
+                        number: cardNumber,
+                        exp_month: exp_month,
+                        exp_year: exp_year,
+                        cvc: cardCvc
+                    },
+                    billing_details: {
+                        name: name,
+                        email: email,
+                        phone: phone
+                    }
                 });
 
-                // フォームをリセット
-                document.getElementById('booking-form').reset();
-                
-                // ボタンを戻す
-                submitBtn.disabled = false;
-                submitBtn.textContent = '予約・決済へ進む';
+                if (pmError) {
+                    throw new Error(pmError.message || '支払い方法の作成に失敗しました');
+                }
+
+                // Payment Intent を作成して確認
+                const amountInCents = parseInt(price) * 100;
+                const intentResponse = await fetch('https://api.stripe.com/v1/payment_intents', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer sk_test_51U9hS4GuzBXuIGVYcPM0bkajMTxMJSIhh5LpdH4iDSHDBYuigGVRGrapTLokhYPxJ0FOZPnj0Q8sPC1hvDQ4aJHH00UgC1E7Ln',
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({
+                        'amount': amountInCents,
+                        'currency': 'jpy',
+                        'payment_method': paymentMethod.id,
+                        'confirm': 'true',
+                        'return_url': `${window.location.origin}?payment_success=true`
+                    })
+                });
+
+                if (!intentResponse.ok) {
+                    const error = await intentResponse.json();
+                    throw new Error(error.error?.message || '決済処理に失敗しました');
+                }
+
+                const paymentIntent = await intentResponse.json();
+
+                if (paymentIntent.status === 'succeeded') {
+                    alert('決済が完了しました！予約確認メールを送信しました。');
+                    console.log('予約完了:', {
+                        name, 
+                        email, 
+                        phone, 
+                        parkingName, 
+                        bookingDate, 
+                        carNumber, 
+                        price,
+                        paymentIntentId: paymentIntent.id
+                    });
+                    document.getElementById('booking-form').reset();
+                } else if (paymentIntent.status === 'requires_action') {
+                    alert('3D Secure認証が必要です');
+                } else {
+                    throw new Error('決済状態が不正です');
+                }
             } catch (error) {
                 const messageContainer = document.getElementById('payment-message');
                 messageContainer.textContent = `エラー: ${error.message}`;
