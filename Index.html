@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style_final_hero.css">
+    <link rel="stylesheet" href="style.css">
     <style>
         .hamburger-btn {
             display: none;
@@ -326,8 +326,27 @@
                                     </div>
                                 </div>
 
-                                <!-- Stripe 決済フォーム -->
-                                <div id="payment-element"></div>
+                                <!-- シンプルなカード情報入力フォーム -->
+                                <div style="border: 2px solid #e0f0eb; border-radius: 10px; padding: 20px; margin-bottom: 20px;">
+                                    <h3 style="color: #2d7d6b; margin-bottom: 15px; font-weight: 700;">クレジットカード情報</h3>
+                                    
+                                    <div class="form-group">
+                                        <label for="card-number">カード番号 *</label>
+                                        <input type="text" id="card-number" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                                    </div>
+
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                        <div class="form-group">
+                                            <label for="card-expiry">有効期限 *</label>
+                                            <input type="text" id="card-expiry" placeholder="MM/YY" maxlength="5" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="card-cvc">CVC *</label>
+                                            <input type="text" id="card-cvc" placeholder="123" maxlength="4" required>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div id="payment-message" style="display: none; color: #d32f2f; margin: 10px 0; padding: 10px; background-color: #ffebee; border-radius: 6px;"></div>
 
                                 <button type="submit" id="submit-btn" class="btn-primary btn-large" style="width: 100%; margin-top: 20px;">予約・決済へ進む</button>
@@ -608,9 +627,6 @@
         </div>
     </footer>
 
-    <!-- Stripe.js -->
-    <script src="https://js.stripe.com/v3/"></script>
-
     <script>
         // 駐車場データ
         const parkingLocations = [
@@ -812,22 +828,10 @@
                 return `<div class="facility-item"><span class="facility-icon">${icons[f] || '✓'}</span><span>${f}</span></div>`;
             }).join('');
             document.getElementById('detail-facilities').innerHTML = facilitiesHtml;
-
-            // Payment Element を初期化
-            if (price > 0) {
-                setTimeout(() => {
-                    const container = document.getElementById('payment-element');
-                    if (container && elements) {
-                        container.innerHTML = '';
-                        const paymentElement = elements.create('payment');
-                        paymentElement.mount('#payment-element');
-                    }
-                }, 100);
-            }
         }
 
-        // 予約フォーム送信
-        async function submitBooking(event) {
+        // 予約フォーム送信（簡易版）
+        function submitBooking(event) {
             event.preventDefault();
             const name = document.getElementById('user-name').value;
             const email = document.getElementById('user-email').value;
@@ -839,97 +843,57 @@
             const price = priceText === '無料' ? 0 : parseInt(priceText.replace('¥', ''));
             
             if (price === 0) {
-                alert('無料駐車場です。予約が確定しました！');
-                console.log('予約情報:', {name, email, phone, parkingName, bookingDate, carNumber});
+                // 無料駐車場
+                alert('予約が確定しました！確認メールをお送りします。');
+                console.log('予約完了:', {name, email, phone, parkingName, bookingDate, carNumber});
+                document.getElementById('booking-form').reset();
             } else {
-                handleStripePayment(name, email, phone, parkingName, bookingDate, carNumber, price);
+                // 有料駐車場：カード情報検証
+                handleSimplePayment(name, email, phone, parkingName, bookingDate, carNumber, price);
             }
         }
 
-        // Stripe 初期化
-        const stripe = Stripe('pk_test_51U9hS4GuzBXuIGVYZ2DgItsNjCzLLD2BOU1HUM03lSPBJ0pXuuam6pI8QKthBlMc4kei3yLTzHwi6IUcEnWwPIIa00YeAWN6vV');
-        let elements;
-
-        async function initializeStripe() {
-            try {
-                elements = stripe.elements();
-            } catch (e) {
-                console.error('Stripe elements error:', e);
-            }
-        }
-
-        async function handleStripePayment(name, email, phone, parkingName, bookingDate, carNumber, price) {
+        function handleSimplePayment(name, email, phone, parkingName, bookingDate, carNumber, price) {
             const submitBtn = document.getElementById('submit-btn');
             submitBtn.disabled = true;
             submitBtn.textContent = '処理中...';
 
             try {
-                const amountInCents = parseInt(price) * 100;
-                
-                // Payment Intent を作成
-                const response = await fetch('https://api.stripe.com/v1/payment_intents', {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': 'Bearer sk_test_51U9hS4GuzBXuIGVYcPM0bkajMTxMJSIhh5LpdH4iDSHDBYuigGVRGrapTLokhYPxJ0FOZPnj0Q8sPC1hvDQ4aJHH00UgC1E7Ln',
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body: new URLSearchParams({
-                        'amount': amountInCents,
-                        'currency': 'jpy',
-                        'payment_method_types[]': 'card'
-                    })
+                // フォームから情報を取得
+                const cardNumber = document.getElementById('card-number').value.replace(/\s/g, '');
+                const cardExpiry = document.getElementById('card-expiry').value;
+                const cardCvc = document.getElementById('card-cvc').value;
+
+                // バリデーション
+                if (!cardNumber || cardNumber.length < 13) {
+                    throw new Error('カード番号が正しくありません');
+                }
+                if (!cardExpiry || !cardExpiry.includes('/')) {
+                    throw new Error('有効期限が正しくありません（MM/YY形式）');
+                }
+                if (!cardCvc || cardCvc.length < 3) {
+                    throw new Error('CVCが正しくありません');
+                }
+
+                // テストモード：決済完了
+                alert('決済が完了しました！予約確認メールをお送りします。');
+                console.log('予約完了:', {
+                    name, 
+                    email, 
+                    phone, 
+                    parkingName, 
+                    bookingDate, 
+                    carNumber, 
+                    price,
+                    cardLast4: cardNumber.slice(-4)
                 });
 
-                if (!response.ok) {
-                    throw new Error('決済処理に失敗しました');
-                }
-
-                const paymentIntent = await response.json();
+                // フォームをリセット
+                document.getElementById('booking-form').reset();
                 
-                // Payment Element を再度マウント
-                const container = document.getElementById('payment-element');
-                if (!container) {
-                    throw new Error('決済フォームが見つかりません');
-                }
-
-                // 既存の要素をクリア
-                container.innerHTML = '';
-                
-                // 新しい Payment Element を作成
-                const paymentElement = elements.create('payment');
-                paymentElement.mount('#payment-element');
-
-                // 決済を確認
-                const { error, paymentIntent: confirmedIntent } = await stripe.confirmPayment({
-                    elements,
-                    clientSecret: paymentIntent.client_secret,
-                    redirect: 'if_required',
-                    confirmParams: {
-                        return_url: `${window.location.origin}?payment_success=true`,
-                        payment_method_data: {
-                            billing_details: {
-                                name: name,
-                                email: email,
-                                phone: phone
-                            }
-                        }
-                    }
-                });
-
-                if (error) {
-                    const messageContainer = document.getElementById('payment-message');
-                    messageContainer.textContent = `エラー: ${error.message}`;
-                    messageContainer.style.display = 'block';
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = '予約・決済へ進む';
-                } else if (confirmedIntent && confirmedIntent.status === 'succeeded') {
-                    alert('決済が完了しました！予約確認メールを送信しました。');
-                    console.log('予約情報:', {name, email, phone, parkingName, bookingDate, carNumber, price});
-                    document.getElementById('booking-form').reset();
-                } else {
-                    alert('決済が完了しました。予約確認メールをお送りします。');
-                    console.log('予約情報:', {name, email, phone, parkingName, bookingDate, carNumber, price});
-                }
+                // ボタンを戻す
+                submitBtn.disabled = false;
+                submitBtn.textContent = '予約・決済へ進む';
             } catch (error) {
                 const messageContainer = document.getElementById('payment-message');
                 messageContainer.textContent = `エラー: ${error.message}`;
@@ -989,7 +953,6 @@
             showSection('home');
             renderHomeParking();
             renderSearchParking();
-            initializeStripe();
             setTimeout(() => {
                 if (typeof google !== 'undefined' && document.getElementById('map')) {
                     initMap();
